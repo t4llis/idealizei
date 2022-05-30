@@ -1,0 +1,25 @@
+﻿.td-cabecalho-table-equipes{
+    display: flex;
+}
+
+.itens-table-equipes {
+    width: 50% !important;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.itens-table-equipes:hover {
+    text-decoration: underline !important;
+}
+
+
+#nome_user_perfil{
+    text-decoration: none;
+    color:black;
+}
+
+#nome_user_perfil:hover{
+    cursor:pointer;
+    text-decoration: underline;
+}

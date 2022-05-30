@@ -1,0 +1,552 @@
+﻿<div class="right_col conteudo_paginas" role="main">
+
+    <p style="display:none" id="id_adm">@Session["ID"].ToString()</p>
+    <p style="display:none" id="id_equipe_selecionada"></p>
+
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Perfil do Usuário</h3>
+            </div>
+            
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5  form-group pull-right top_search">
+                    <div class="input-group">
+                        <select id="pesquisarUser" class="form-control">
+                            <option selected="selected" value="-1">Todos usuários</option>
+                            @{ foreach (var item in ViewBag.ListUsuarios)
+                                {
+                                    <option value="@item.ID">@item.NOME</option>
+                                }
+                            }
+                        </select>
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary" id="btn_pesquisarUser" type="button" style="color:#ffff;">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel"  style="width:100% !important;">
+                    <div class="x_title">
+                        <!-- <h2>User Report <small>Activity report</small></h2> -->
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Settings 1</a>
+                                    <a class="dropdown-item" href="#">Settings 2</a>
+                                </div>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="col-md-3 col-sm-3  profile_left">
+                            <div class="profile_img">
+                                <div id="crop-avatar">
+                                    <img class="img-circle avatar-view" id="img_user_1" src="@Session["urlimagem"].ToString()" alt="Avatar" title="Change the avatar" width="200" height="200">
+                                </div>
+                            </div>
+                            <h3 id="nome_user_label">
+                                @{ var nome = Session["Nome"] != null ? Session["Nome"].ToString() : "";}
+                                @nome
+                            </h3>
+
+                            <p id="email_user_label">
+                                @{ var email = Session["EMAIL"] != null ? Session["EMAIL"].ToString() : "";}
+                                @email
+                            </p>
+
+                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalAlterarDados">
+                                <i class="fa fa-edit m-right-xs"> </i>Editar Perfil
+                            </button>
+
+                            <br>
+
+
+                            <!-- HABILIDADES -->
+                            <br />
+                            <div>
+
+                                <div id="graph_bar_user_container" style="display:none;">
+                                     
+                                    <div class="x_panel"  style="width:100% !important;">
+                                        <div class="x_title">
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li class="dropdown" style="opacity:0; cursor:default !important;">
+                                                    <a href="#" class="dropdown-toggle" style="opacity:0; cursor:default !important;" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item" href="#">Settings 1</a>
+                                                        <a class="dropdown-item" href="#">Settings 2</a>
+                                                    </div>
+                                                </li>
+
+                                                <li>
+                                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+
+                                        <div class="x_content conteudo_cad">
+                                            <div id="graph_bar_user" style="width:100%; height:200px;"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-9 col-sm-9 ">
+
+                            <!-- INICIO GRAFICO -->
+                            <div style="display:none;">
+                                <div class="profile_title">
+                                    <div class="col-md-6">
+                                        <h2 style="margin-top:20px;">IDEIAS CRIADAS</h2>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="control-group">
+                                            <div class="controls" style="margin-top:10px;">
+                                                <div class="col col-md-2">
+                                                </div>
+
+                                                <div class="col-md-5 xdisplay_inputx form-group row has-feedback">
+                                                    <input data-toggle="datepicker" id="data_de" class="form-control">
+                                                </div>
+
+                                                <div class="col-md-5 xdisplay_inputx form-group row has-feedback">
+                                                    <input data-toggle="datepicker" id="data_ate" class="form-control">
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                <!-- BARRAS DO GRAFICO -->
+                                <div id="graph_bar"  style="width: 100%; height: 280px; position: relative; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+
+                                </div>
+
+                            </div>
+                            <!-- FIM GRAFICO -->
+
+                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+
+                                    <li role="presentation" class="alinhar-img-loading active">
+
+                                        <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true" style="display:flex;">
+                                            <span>Ideias cocriadas</span>
+                                            <img id="img_loading_pergunta_page1" class="loading-perfil-user" src="~/images/icon_loading.gif" />
+                                            <i class="fa fa-question-circle" style="margin-left:5px;" title="Lista todas as cocriações realizadas"></i>
+                                        </a>
+
+
+                                    </li>
+
+                                    <li role="presentation" class="alinhar-img-loading">
+
+                                        <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false" style="display:flex;">
+                                            <span>Projetos envolvidos</span>
+                                            <img id="img_loading_pergunta_page2" class="loading-perfil-user" src="~/images/icon_loading.gif" />
+                                            <i class="fa fa-question-circle" style="margin-left:5px;" title="Lista todos os projetos em que você está envolvido"></i>
+                                        </a>
+
+                                    </li>
+
+                                    <li role="presentation" class="alinhar-img-loading">
+
+                                        <a href="#tab_content3" role="tab" id="tags-tab" data-toggle="tab" aria-expanded="false" style="display:flex;">
+                                            <span>Cadastrar Tags</span>
+                                            <img id="img_loading_pergunta_page3" class="loading-perfil-user" src="~/images/icon_loading.gif" />
+                                            <i class="fa fa-question-circle" style="margin-left:5px;" title="Aqui você pode cadastrar tags"></i>
+                                        </a>
+
+                                    </li>
+
+                                    <li role="presentation" class="alinhar-img-loading">
+
+                                        <a href="#tab_content4" role="tab" id="equipes-tab" data-toggle="tab" aria-expanded="false" style="display:flex;">
+                                            <span>Cadastrar Equipes</span>
+                                            <img id="img_loading_pergunta_page4" class="loading-perfil-user" src="~/images/icon_loading.gif" />
+                                            <i class="fa fa-question-circle" style="margin-left:5px;" title="Aqui você pode cadastrar equipes"></i>
+                                        </a>
+
+                                    </li>
+
+                                    <li role="presentation" class="alinhar-img-loading">
+
+                                        <a href="#tab_content5" role="tab" id="links-tab" data-toggle="tab" aria-expanded="false" style="display:flex;">
+                                            <span>Links de convite</span>
+                                            <img id="img_loading_pergunta_page5" class="loading-perfil-user" src="~/images/icon_loading.gif" />
+                                            <i class="fa fa-question-circle" style="margin-left:5px;" title="Aqui você pode gerar links de convite"></i>
+                                        </a>
+
+                                    </li>
+
+                                </ul>
+
+                                <div id="myTabContent" class="tab-content">
+
+                                    <div role="tabpanel" class="tab-pane active " id="tab_content1" aria-labelledby="home-tab">
+
+                                        <ul class="messages" id="respostas_cocriacao">
+                                        </ul>
+
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+
+                                        <table class="data table table-striped no-margin">
+
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nome Ideia</th>
+                                                    <th>Lider</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="IdeiasEnvolvidas">
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="tab_content3" aria-labelledby="tags-tab">
+                                        <div class="row">
+
+                                            <div class="col col-md-3">
+                                            </div>
+
+                                            <div class="col col-md-6">
+                                                <form>
+                                                    <span>Informe as tags:</span>
+                                                    <select id="tagsAdm" multiple>
+                                                        @{ foreach (var item in ViewBag.ListTags)
+                                                            {
+                                                                if (item.ATIVO == "S")
+                                                                {
+                                                                    <option value="@item.ID" selected>@item.DESCRICAO</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@item.ID">@item.DESCRICAO</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    </select>
+
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    <button type="button" class="btn btn-primary" id="btnSalvarTags" title="Salvar Tags"> Salvar tags</button>
+
+                                                </form>
+                                            </div>
+
+
+
+                                            <div class="col col-md-3">
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="tab_content4" aria-labelledby="equipes-tab">
+
+                                        <div class="row">
+
+                                            <div class="col col-md-3">
+                                            </div>
+
+                                            <div class="col col-md-6">
+
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="formGroupExampleInput">Nome equipe:</label>
+                                                        <input type="text" class="form-control" id="nomeEquipe" placeholder="informe o nome da equipe">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <span>Selecione os integrantes:</span>
+                                                        <select id="integrantesEquipe" multiple>
+                                                            @{ foreach (var item in ViewBag.ListUsuarios)
+                                                                {
+                                                                    <option value="@item.ID">@item.NOME</option>
+
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+
+                                                    <br />
+                                                    <br />
+                                                    <br />
+
+                                                    <div class="row">
+                                                        <div class="col col-md-12">
+                                                            <button type="button" class="btn btn-primary" id="btnSalvarEquipes" title="Salvar Equipe">Criar Equipe</button>
+                                                            <button type="button" class="btn btn-secondary" id="btnCancelarEdit" title="Cancelar">Cancelar</button>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+
+
+
+                                            <div class="col col-md-3">
+                                            </div>
+
+                                        </div>
+
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <div class="row">
+                                            <div class="col col-md-1"></div>
+
+                                            <div class="col col-md-10">
+                                                <table class="data table table-striped no-margin">
+
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Nome Equipe</th>
+                                                            <th>Integrantes</th>
+                                                            <th style="text-align:center;" colspan="1">ações</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody id="EquipesCriadas">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="col col-md-1"></div>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="tab_content5" aria-labelledby="equipes-tab">
+
+                                        <div class="row">
+
+                                            <div class="col col-md-12">
+                                                
+                                                <table class="data table table-striped no-margin">
+
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Link</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody id="LinksConvites">
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+
+                                        <br />
+                                        <br />
+
+                                        <div class="row">
+
+                                            <div class="col col-md-9 col-sm-9">
+                                            </div>
+                                            <div class="col col-md-3 col-sm-9">
+                                                <button type="button" class="btn btn-primary" id="btnGerarLinkConvite" title="Salvar Equipe">Gerar link de convite</button>
+                                            </div>
+
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("SalvarInformacoesAdm",
+               "User",
+               FormMethod.Post,
+               new { enctype = "multipart/form-data" }))
+    {
+        <!-- ALTERAR DADOS -->
+        <div class="modal fade" id="modalAlterarDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Alterar Dados</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div style="width:100%;">
+                            <img style="margin-left: 26%;" id="img_user_2" class="img-circle avatar-view" src="@Session["urlimagem"].ToString()" alt="Avatar" title="Change the avatar" width="200" height="200">
+                        </div>
+                        <form>
+
+                            <br />
+                            <label for="file" id="file_adm_label">Selecione a imagem: </label>
+                            <br />
+                            <input type="file" name="file" id="file_adm" />
+
+                            <br />
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nome</label>
+                                <input type="text" class="form-control" id="nome_user" name="nome" aria-describedby="nomeHelp" value="@Session["Nome"].ToString()" placeholder="Informe seu nome">
+                            </div>
+
+                            <br />
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Pefil de Acesso</label>
+                                <select class="form-control" id="PerfilAcesso" name="perfil">
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" id="NivelAcesso" name="nivelAcesso">
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="display:none;">
+                                <input type="text" class="form-control" id="id_user_selec" name="idUser" value="@Session["id"].ToString()" />
+                            </div>
+
+                            <br />
+                            <br />
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+</div>

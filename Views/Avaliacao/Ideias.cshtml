@@ -1,0 +1,258 @@
+﻿<div class="right_col conteudo_paginas" role="main">
+
+    <p id="id_ideia" style="display:none;">@ViewBag.IdeiasAvaliacao.Data[0].IDPROJETO</p>
+
+    @{
+        if (@ViewBag.JaRealizouFeedback)
+        {
+            <h1 class="ideia_h1_nv1 ideia_visible_nv1">Você já avaliou está ideia!</h1>
+        }
+        else
+        {
+            <div class="row">
+            </div>
+
+            <!-- CABEÇALHO -->
+            <div class="container_cabecalho_edit">
+                <div class="row cabecalho_edit_top">
+                    <div class="col-md-12">NOME DO PROJETO: <p>&nbsp @ViewBag.IdeiasAvaliacao.Data[0].NOMEPROJETO.ToUpper()</p></div>
+                    <div class="col-md-12">LÍDER:           <p>&nbsp @ViewBag.IdeiasAvaliacao.Data[0].LIDER.ToUpper()</p></div>
+                    <div class="col-md-12">COCRIADORES:     <p>&nbsp @ViewBag.NomesCoCriadores</p></div>
+                </div>
+            </div>
+            <br />
+
+            <!-- DESCRIÇÃO DO PROBLEMA -->
+            <div class="container_cabecalho_edit">
+
+                <img id="img_loading_descricao_problema" src="~/images/icon_loading.gif" width="30" height="30" style="margin-bottom: -10px;" />
+
+                <div class="row cabecalho_edit_top">
+                    <div class="col-md-12">Descreva o problema que você pretende solucionar:</div>
+                </div>
+
+                <div class="row cabecalho_edit_bottom" style="margin-top: 10px;">
+                    <div class="col-md-12 col-sm-12">
+                        <p id="dor_ideia" class="descricao_pergunta_click" style="color:black;">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <!-- SOLUÇÕES -->
+            <div class="container_cabecalho_edit">
+
+                <img id="img_loading_solucoes" src="~/images/icon_loading.gif" width="30" height="30" style="margin-bottom: -10px;" />
+
+                <div class="row cabecalho_edit_top">
+                    <div class="col-md-12">Ideias que podem solucionar esse problema:</div>
+                </div>
+                
+                <div class="row cabecalho_edit_bottom chips__choice solucao_ideia_tags" style="margin-top: 10px; display:flex;">
+
+                </div>
+
+            </div>
+
+            if (ViewBag.IdeiasAvaliacao.Data[0].LINKPIT != "")
+            {
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-md-12 col-sm-12">
+                        <h2 class="cards_colaborar_titulo_avaliacao" style="height: 30px;">
+                            Assista aqui a apresentação da ideia
+                        </h2>
+
+                        <div style="margin-top:0px;">
+                            <iframe width="100%" height="300"
+                                    src="@ViewBag.IdeiasAvaliacao.Data[0].LINKPIT"
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="row">
+                <div class="col col-md-3"></div>
+
+                <div class="col col-md-6" style="margin-top: 10px;">
+
+                    <h2 class="cards_colaborar_titulo_avaliacao">Antes de começar a sua avaliação, informe aqui qual o grupo de avaliadores você faz parte:</h2>
+                    <div class="chips__choice">
+                        @{ foreach (var item in ViewBag.ListTags)
+                            {
+                                if (item.ATIVO == "S")
+                                {
+                                    <div class="chip tag_avaliacao" data-id-tag="@item.ID">
+                                        <span class="icon icon--leadind chip--check">
+                                            <i class="fa fa-check"></i>
+                                        </span>
+                                        <span>@item.DESCRICAO</span>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+
+                </div>
+                <div class="col col-md-3"></div>
+            </div>
+
+            for (int i = 0; i < @ViewBag.IdeiasAvaliacao.Data.Count; i++)
+            {
+                <div class="cards_colaborar_container">
+
+                    <h1 class="cards_colaborar_titulo_avaliacao">@ViewBag.IdeiasAvaliacao.Data[i].TITULO</h1>
+                    <div class="cards_colaborar" style="height: 100%!important; padding-bottom: 10px; background-color:#e9e9e9 !important; color: black !important; margin-top: 10px;">
+
+                        <div class="container_resposta_cocriador">
+                            <div class="row resposta_cocriador_1">
+                                <p>@ViewBag.IdeiasAvaliacao.Data[i].TEXTOIDEIAINOVADORA</p><!-- Codigo provisorio, ajustar depois que ajustarmos os cadastros -->
+                            </div>
+
+                            <div class="row alinhamento_cards_avaliacao_pai">
+                                @for (int j = 0; j < ViewBag.Respostas.Count; j++)
+                                {
+                                    if (ViewBag.Respostas[j].ID_QUESTAO_IDEIAS == ViewBag.IdeiasAvaliacao.Data[i].ID_QUESTAO_IDEIAS)
+                                    {
+                                        <div class="resposta_cocriador_2 resposta_cocriador_2_avaliacao" style="background-color:@ViewBag.Respostas[j].COR_CARD; color:#fff;">
+                                            <p class="p1 p1_novo" style="width:100%; height:95%; font-size: 1em;">@ViewBag.Respostas[j].RESPOSTA</p>
+                                        </div>
+                                    }
+                                }
+                            </div>
+
+                        </div>
+
+                        @for (int k = 0; k < @ViewBag.QuestoesAvaliacaoIdeias.Count; k++)
+                        {
+                            if (ViewBag.IdeiasAvaliacao.Data[i].ID_QUESTAO_IDEIAS == ViewBag.QuestoesAvaliacaoIdeias[k].ID_QUESTAO_IDEIAS)
+                            {
+                                <div>
+                                    <h2 class="questoes_avaliacao_ideias">@ViewBag.QuestoesAvaliacaoIdeias[k].TEXTOPRATICA</h2> <!-- Codigo provisorio, ajustar depois que ajustarmos os cadastros -->
+                                </div>
+
+                                <div>
+                                    <h2 style="font-size:1em; margin-left: 20px; margin-bottom: 10px">@ViewBag.QuestoesAvaliacaoIdeias[k].SUBTITULO</h2> 
+                                </div>
+
+                                <div style="margin-bottom: 30px;">
+                                    <div class="div_pai_star">
+                                        @{
+                                            for (int j = 0; j <= 10; j++)
+                                            {
+                                                <div style="margin-left: 20px;">
+                                                    @{
+                                                        var idStar = j + "_" + ViewBag.QuestoesAvaliacaoIdeias[k].IDQUESTAOAVALIACAOIDEIA;
+                                                    }
+                                                    <a href='javascript:void(0)' onclick="PreencheEstrela(@j, @ViewBag.QuestoesAvaliacaoIdeias[k].IDQUESTAOAVALIACAOIDEIA)">
+                                                        <img src="/images/star0.png" id="star_@idStar">
+                                                    </a>
+
+                                                    <div class="div_filho_star">
+                                                        <br />
+                                                        <span style="font-weight: bold;">@j</span>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <input type="text" id="pontuacao_@ViewBag.QuestoesAvaliacaoIdeias[k].IDQUESTAOAVALIACAOIDEIA" value="0" hidden>
+                                        }
+                                    </div>
+
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+            }
+
+            <br />
+            <br />
+
+            <div class="row" style="margin-left:1px;">
+                <span class="observacao_span_avaliacao">Deixe aqui o seu feedback final para esta ideia que foi avaliada: </span>
+            </div>
+            <div class="row" style="margin-left:5px; margin-right:5px;">
+                <textarea class="col-12 ideia_textarea_nv2" type="text" name="observacao" id="observacao" required cols="6" rows="3" maxlength="600" style="height:100px;"> </textarea>
+            </div>
+
+            <br />
+            <div class="row" id="grid_anexos_ideia_avaliacao">
+                
+                <div class="col col-md-5 col-sm-5" style="margin-left:5px;">
+                    <h6 style="font-weight:bold;"> Anexos</h6>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grid_anexos_ideia_conteudo_avaliacao">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col col-md-7 col-sm-7"></div>
+
+            </div>
+            <br />
+
+
+            <br />
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2 btn_proxima_avaliacao">
+                    <a href="#"
+                       class="btn btn-light btn-ideias btn-enviar-avaliacao"
+                       title="Enviar avaliação"
+                       name="avaliacao">
+                        ENVIAR AVALIAÇÃO
+                    </a>
+                </div>
+            </div>
+        }
+    }
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <script type='text/javascript'>
+
+        var avaliacoesIdeias = @Html.Raw(Json.Encode(ViewBag.QuestoesAvaliacaoIdeias));
+
+        function PreencheEstrela(estrelaSelecionada, idQuestao) {
+
+            for (let i = 0; i <= 10; i++) {
+
+                if (i <= estrelaSelecionada) {
+                    document.getElementById("star_" + i + "_" + idQuestao).src = "/images/star1.png";
+                    avaliacao = i + 1;
+                } else {
+                    document.getElementById("star_" + i + "_" + idQuestao).src = "/images/star0.png";
+                    avaliacao = estrelaSelecionada;
+                }
+
+            }
+
+            if (avaliacao == 11) {
+                avaliacao = 10;
+            }
+
+            $('#pontuacao_' + idQuestao).val(avaliacao);
+
+        }
+    </script>
+
+
+</div>

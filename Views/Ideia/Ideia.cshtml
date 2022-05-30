@@ -1,0 +1,154 @@
+﻿<div class="right_col conteudo_paginas" role="main">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <span>IDEIA: @ViewBag.Ideia.Data[0].NOMEPROJETO.ToUpper()</span>
+            <br />
+            <span>LIDER: @ViewBag.Ideia.Data[0].LIDER.ToUpper()</span>
+            <br />
+
+            @{
+                if (ViewBag.NomesCoCriadores != "")
+                {
+                    <span>COCRIADORES: @ViewBag.NomesCoCriadores</span>
+                    <br />
+                }
+            }
+
+        </div>
+    </div>
+
+        
+        
+    @for (int i = 0; i < @ViewBag.Ideia.Data.Count; i++)
+    {
+        <div class="cards_colaborar_container">
+    
+            <h1 class="cards_colaborar_titulo">@ViewBag.Ideia.Data[i].TITULO</h1>
+            <div class="cards_colaborar" style="height: 100%!important; padding-bottom: 10px;">
+
+                <div class="container_resposta_cocriador">
+                    <div class="row resposta_cocriador_1">
+                        <p>@ViewBag.Ideia.Data[i].TEXTOIDEIAINOVADORA</p><!-- Codigo provisorio, ajustar depois que ajustarmos os cadastros -->
+                    </div>
+
+                    <div class="row alinhamento_cards_avaliacao_pai">
+                        @for (int j = 0; j < ViewBag.Respostas.Count; j++)
+                        {
+                            if (ViewBag.Respostas[j].ID_QUESTAO_IDEIAS == ViewBag.Ideia.Data[i].ID_QUESTAO_IDEIAS)
+                            {
+                                <div class="resposta_cocriador_2 resposta_cocriador_2_avaliacao" style="background-color:@ViewBag.Respostas[j].COR_CARD; color:#fff;">
+                                    <p class="p1 p1_novo">@ViewBag.Respostas[j].RESPOSTA</p>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <br />
+    <br />
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">                
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informe o nome para a nova ideia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">                    
+                    <input class="col-12 ideia_input_nv2" type="text" name="nomeIdeiaDuplicada" id="nomeIdeiaDuplicada" />
+                </div>
+                <div class="modal-footer">                    
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary btn-Modal-duplicar-ideia" data-idideia="@ViewBag.idIdeia">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row ">
+
+        <div class="col-md-4 col-sm-4" style="margin-top:10px;">
+            <h2 style="font-weight:bold;">
+                Assista aqui a apresentação da ideia
+            </h2>
+            <iframe width="100%" height="200"
+                    src="@ViewBag.Ideia.Data[0].LINKPIT"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="col-md-2 col-sm-2 div-ideia_concluida">
+            <div class="btn-ideia_concluida">
+                <h2 style="font-weight:bold;">
+                    Quer modificar a sua ideia? Crie aqui uma versão
+                </h2>
+                <span>
+                    Ao criar um versão nova da sua ideia você preserva os feedbacks da versão
+                    original e consegue comparar a ideia original com a nova versão em suas avaliações.
+                </span>
+                <span>
+                    <!--<a href="#" class="btn btn-light btn-ideias btn-duplicar-ideia" data-idideia="@ViewBag.idIdeia" name="duplicarIdeia">
+                        CLIQUE AQUI
+                    </a>-->
+                    <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-light btn-ideias" name="duplicarIdeia">
+                        CLIQUE AQUI
+                    </a>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2 col-sm-2 div-ideia_concluida">
+            <div class="btn-ideia_concluida">
+                <h2 style="font-weight:bold;">
+                    Quer compartilhar esta ideia?
+                </h2>
+                <span>
+                    Compartilhe agora sua ideia finalizada para receber feedbacks de colegas de trabalho, líderes, amigos e etc…
+                </span>
+                <span>
+                    <a href="/Ideia/Share/?idIdeia=@ViewBag.idIdeia&shareEnum=AVALIACAO" class="btn btn-light btn-ideias btn-convidar" name="convidar">
+                        CLIQUE AQUI
+                    </a>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-3 div-ideia_concluida" style="float:right;">
+            <div class="btn-ideia_concluida">
+                <h2 style="font-weight:bold;">
+                    Você quer potencializar a performance da sua ideia inovadora?
+                </h2>
+                <span>
+                    Conheça as nossas soluções e conte com os nossos mentores para a implementação dessa inovação.
+                </span>
+                <br />
+                <br />
+                <span>
+                    <a href="https://idealizei.com.br/prototipacao/" target="_blank" class="btn btn-light btn-ideias" name="potencializarIdeia">
+                        EU QUERO POTENCIALIZAR A MINHA IDEIA
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+</div>

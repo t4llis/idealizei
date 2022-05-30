@@ -1,0 +1,67 @@
+﻿
+.icon_Page_Pontencializar {
+    display: block;
+    width:150px;
+    margin: 0 auto;
+
+}
+
+.card-Pontencializar-alig-itens {
+    margin: 0 auto;
+    display:flex;
+}
+
+.card-Pontencializar {
+    display: block;
+    background-color: #fff;
+    border: solid 0.1px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    margin: 10px 15px 10px 15px;
+}
+
+.card-Pontencializar-conteudo {
+    padding: 5px 30px 5px 30px;
+}
+
+
+.btn-saiba-mais-potencializar {
+    width: 100%;
+    background-color: #FFBF00;
+    padding: 10px 35px 10px 35px;
+}
+
+
+.btn-submit-orcamento {
+    border: none;
+    width: 100%;
+    background-color: #FFBF00;
+    color:#fff;
+    height:45px;
+    border-radius:5px;
+}
+
+.btn-submit-orcamento:hover{
+    opacity:0.8;
+}
+
+.input_contato_oracamento {
+    border-radius: 5px;
+}
+
+.input_contato_oracamento:focus {
+    border-color: #FFBF00;
+}
+
+.tipo-item-prontencializar {
+    margin: 0 auto;
+    width: 100px;
+}
+
+.alinhar-texto-tipo-card h4{
+    text-align:center;
+}
+
+.alinhar-texto-tipo-card p{
+    width: 100%;
+    height:100px;
+}

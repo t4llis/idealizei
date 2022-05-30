@@ -1,0 +1,117 @@
+﻿<div class="right_col conteudo_paginas" role="main">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <span>IDEIA: @ViewBag.QuestoesAvaliacaoIdeias[0].NOMEPROJETO.ToUpper()</span>
+            <br />
+            <span>LIDER: @ViewBag.QuestoesAvaliacaoIdeias[0].LIDER.ToUpper()</span>
+            <br />
+            <span>COCRIADORES: @ViewBag.NomesCoCriadores</span>
+            <br />
+        </div>
+    </div>
+
+    <!--Card resposta para avaliar-->
+    <div class="cards_colaborar_container">
+
+        <h1 class="cards_colaborar_titulo_avaliacao">@ViewBag.QuestoesAvaliacaoIdeias[0].TITULO</h1>
+        <div class="cards_colaborar" style="height: 100%!important; padding-bottom: 10px; background-color:#e9e9e9 !important;">
+
+            <div class="container_resposta_cocriador">
+                <div class="row resposta_cocriador_1">
+                    <p>@ViewBag.QuestoesAvaliacaoIdeias[0].TEXTOIDEIAINOVADORA</p><!-- Codigo provisorio, ajustar depois que ajustarmos os cadastros -->
+                </div>
+
+                <div class="row alinhamento_cards_avaliacao_pai">
+                    @for (int j = 0; j < ViewBag.Respostas.Count; j++)
+                    {
+                        if (ViewBag.Respostas[j].ID_QUESTAO_IDEIAS == ViewBag.QuestoesAvaliacaoIdeias[0].ID_QUESTAO_IDEIAS)
+                        {
+                            <div class="resposta_cocriador_2 resposta_cocriador_2_avaliacao" style="background-color:@ViewBag.Respostas[j].COR_CARD; color:#fff;">
+                                <p class="p1 p1_novo" style="width:100%; height:95%; font-size: 1em;">@ViewBag.Respostas[j].RESPOSTA</p>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            </br>
+            </br>
+            </br>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <h1 class="media_ideia_avaliacao count">@ViewBag.MediaPontuacaoQuestaoIdeia</h1>
+                </div>
+            </div>
+
+            @{
+                for (int i = 0; i < @ViewBag.QuestoesAvaliacaoIdeias.Count; i++)
+                {
+                    <div>
+                        <h2 class="questoes_avaliacao_ideias">@ViewBag.QuestoesAvaliacaoIdeias[i].TEXTOPRATICA</h2> <!-- Codigo provisorio, ajustar depois que ajustarmos os cadastros -->
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <div class="div_pai_star">
+
+                            @{
+                                for (int j = 0; j <= 10; j++)
+                                {
+                                    <div style="margin-left: 20px;">
+                                        @{
+                                            var idStar = j + "_" + ViewBag.QuestoesAvaliacaoIdeias[i].IDQUESTAOAVALIACAOIDEIA;
+                                        }
+
+                                        <img src="/images/star0.png" id="star_@idStar">
+
+                                        <div class="div_filho_star">
+                                            <br />
+                                            <span style="font-weight: bold;">@j</span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                            <img src="/images/star0.png" onload="PreencheEstrelaFeedback(@ViewBag.MediaPontuacaoQuestaoAvaliacaoIdeia.Data[i].MEDIA_QUESTAO_AVALIACAO_IDEIA, @ViewBag.QuestoesAvaliacaoIdeias[i].IDQUESTAOAVALIACAOIDEIA)" hidden>
+                        </div>
+
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+
+    <script type='text/javascript'>
+        function PreencheEstrelaFeedback(estrelaSelecionada, idQuestao) {
+
+            for (let i = 0; i <= 10; i++) {
+
+                if (i <= estrelaSelecionada) {
+                    document.getElementById("star_" + i + "_" + idQuestao).src = "/images/star1.png";
+                    avaliacao = i + 1;
+                } else {
+                    document.getElementById("star_" + i + "_" + idQuestao).src = "/images/star0.png";
+                    avaliacao = estrelaSelecionada;
+                }
+
+            }
+
+            if (avaliacao == 11) {
+                avaliacao = 10;
+            }
+
+            $('#pontuacao_' + idQuestao).val(avaliacao);
+
+        }
+    </script>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    </div>
+

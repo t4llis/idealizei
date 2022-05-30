@@ -1,0 +1,187 @@
+﻿
+/* ideias nivel 1 */
+.ideia_h1_nv1 {
+    display: block;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 3em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.ideia_negocio,
+.ideia_produto,
+.ideia_processo,
+.ideia_diversas {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.ideia_negocio img,
+.ideia_produto img,
+.ideia_processo img {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+.ideia_diversas img {
+    width: 80px;
+    height: 110px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.ideia_diversas a {
+    display: block;
+    margin-top: 30px;
+}
+
+.btn-ideias {
+    border-color: #BEBEBE;
+    color: gray;
+    display: block;
+    font-size: 0.8em;
+}
+
+.btn-ideias:hover {
+    background-color: #FFBF00;
+    color: black;
+}
+
+/* ideias nivel 2 */
+.ideia_h1_nv2,
+.ideia_h1_nv3 {
+    display: block;
+    font-size: 2.5em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.ideia_span_nv2 {
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.ideia_input_nv2 {
+    height: 30px;
+}
+
+.ideia_textarea_nv2 {
+    height: 70px;
+}
+
+textarea {
+    border: 0.2px solid;
+    border-color: gray;
+    border-radius: 5px;
+}
+
+textarea:focus {
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+}
+
+.itens_invisible
+{
+    display: none;
+}
+
+.itens_visible {
+    display:block;
+}
+
+.btn-enviar_ideia_email{
+    color:white;
+}
+
+.btn-cadastrar_nova_ideia {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+}
+
+.div-ideia_concluida {
+    position: relative;
+    min-height: 150px;
+    width: 100px;
+    margin-left: auto;
+}
+
+.btn-ideia_concluida {
+    position: absolute;
+    width: 80%;    
+    bottom: 0;
+    margin-left: 10px;    
+}
+
+.container-avaliacao_ideia {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+}
+
+.texto_cocriador {
+    float:left;
+    display:block;
+    width:200px;
+}
+
+.container_input_radrios {
+    margin-left: 200px;
+    width:300px;
+    height:50px;
+}
+
+
+.alias_input_radio {
+    font-size: 1.2em;
+    margin-top: 9px;
+    margin-right: 5px;
+    display: block;
+    float: left;
+}
+
+.input_radio {
+    width: 18px;
+    height: 18px;
+    margin-top: 10px;
+    margin-right: 15px;
+    float: left;
+}
+
+.btn-prox_nv2{
+    height:30px;
+}
+
+.media_ideia {
+    margin-left: 60%;
+    bottom: 0;
+    position: absolute;
+}
+
+.media_ideia_avaliacao {
+    margin-left: 50%;
+    bottom: 0;
+    position: absolute;
+}
+
+.img_tooltip_help {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;    
+}
+
+.div_editar_ideia p:hover {
+    color: rgb(60, 60, 60);
+}
+
+.current-page .link-itens-menu {
+    color: #ffff !important;
+}

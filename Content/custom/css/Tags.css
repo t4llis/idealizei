@@ -1,0 +1,82 @@
+.chips__choice {
+    display: flex;
+    justify-content: center;
+}
+
+/* .chip é usado na tela de Avaliação*/
+.chip {
+    padding: 0 12px;
+    background-color: #FFBF00;
+    border-radius: 100px;
+    display: inline-flex;
+    margin: 4px;
+    color: #fff;
+    align-items: center;
+    height: 32px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+}
+
+.chip .icon {
+    font-size: 16px;
+    color: #fff;
+    width: 20px;
+    text-align: center;
+}
+
+.chip .icon--leadind {
+    margin: 2px 4px 0 -4px;
+}
+
+.chips__choice .chip.chip--active {
+    color: #fff;
+    background-color: #FFBF00;
+}
+
+.chips__choice .chip .chip--check {
+    display: none;
+}
+
+.chips__choice .chip.chip--active .chip--check {
+    display: block;
+}
+
+/* .chip_solucao é usado na tela de Laboratório de Ideias*/
+.chip_solucao {
+    padding: 0 12px;
+    background-color: #F2F1ED;
+    border-radius: 100px;
+    display: inline-flex;
+    margin: 4px;
+    color: #212529;
+    align-items: center;
+    height: 32px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+}
+
+.chip_solucao .icon {
+    font-size: 16px;
+    color: #212529;
+    width: 20px;
+    text-align: center;
+}
+
+.chip_solucao .icon--leadind {
+    margin: 2px 4px 0 -4px;
+}
+
+.chips__choice .chip_solucao.chip--active {
+    color: #212529;
+    background-color: #FFBF00;
+}
+
+.chips__choice .chip_solucao .chip--check {
+    display: none;
+}
+
+.chips__choice .chip_solucao.chip--active .chip--check {
+    display: block;
+}

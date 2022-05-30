@@ -1,0 +1,190 @@
+﻿<div class="right_col conteudo_paginas" role="main">
+
+    <div class="row">
+    </div>
+
+    <!-- CABEÇALHO -->
+    <div class="container_cabecalho_edit">
+        <div class="row cabecalho_edit_top">
+            <div class="col-md-12">NOME DO PROJETO: <p>&nbsp @ViewBag.Ideia.Data[0].NOMEPROJETO.ToUpper()</p></div>
+            <div class="col-md-12">LÍDER:           <p>&nbsp @ViewBag.Ideia.Data[0].LIDER.ToUpper()</p></div>
+
+            @{
+                if (ViewBag.NomesCoCriadores != "")
+                {
+                    <div class="col-md-12">COCRIADORES:     <p>&nbsp @ViewBag.NomesCoCriadores</p></div>
+                }
+            }            
+        </div>
+    </div>
+    <br />
+
+    <div class="row ">
+        <div class="tile_count col-md-12 col-sm-12">
+            <div class="col-md-4 col-sm-4 widget_tally_box">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <span>Nome ideia:</span>
+                        <h2 style="font-weight: bold;">@ViewBag.InfoCardsIdeiasAvaliadasFeedbacks.Data[0].NOME_IDEIA</h2>
+                        <span>Média nota:</span>
+                        <h2 style="font-weight: bold;">@ViewBag.MediaPontuacaoFeedbacks.Data[0].MEDIA</h2>
+                        <span>Feedbacks recebidos: </span>
+                        <h2 style="font-weight: bold;">@ViewBag.QtdFeedbackRecebido.Data.VALOR</h2>
+
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li class="dropdown" style="opacity:0; cursor:default !important;">
+                                <a href="#" class="dropdown-toggle" style="opacity:0; cursor:default !important;" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Settings 1</a>
+                                    <a class="dropdown-item" href="#">Settings 2</a>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content conteudo_cad">
+                        <div id="graph_bar_feedback_ideia_@ViewBag.InfoCardsIdeiasAvaliadasFeedbacks.Data[0].ID" style="width:100%; height:200px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6" style="margin-left:20px;">
+                <h5>Observações</h5>
+                <div class="carrocel-comentarios-container">
+                    <div class="carrocel-comentarios-itens">
+                        @foreach (var avaliacao in ViewBag.ComentariosAvaliacao)
+                        {
+                            <div class="carrocel-comentarios-item">
+                                <div>@avaliacao.OBSERVACAO</div>
+                                <div style="position:fixed; bottom: 0;">@avaliacao.NOME_AVALIADOR</div>
+                            </div>
+                        }
+                    </div>
+                    <button aria-label="Próximo" class="glider-prev">«</button>
+                    <button aria-label="Anterior" class="glider-next">»</button>
+                    <div role="tablist" class="dots"></div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6" style="margin-top:30px;">
+                <div class="tile_count">
+                    <div class="col-md-12 col-sm-12 tile_stats_count">
+                        <h2 class="count" id="qntFeedbacksRecebidos">@ViewBag.QtdFeedbackRecebido.Data.VALOR</h2>
+                        <h2 class="count_bottom">
+                            Feedbacks recebidos
+                        </h2>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12  tile_stats_count">
+                        <h2 class="count">@ViewBag.MediaPontuacaoFeedbacks.Data[0].MEDIA</h2>
+                        <h2 class="count_bottom">Média nota avaliações</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <table class="data table table-striped no-margin">
+
+            <thead style="background-color: #FFBF00;">
+                <tr>
+                    <th>#</th>
+                    <th>Avaliador</th>
+                    <th>Data avaliação</th>
+                    <th>I</th>
+                    <th>D</th>
+                    <th>E</th>
+                    <th>A</th>
+                    <th>L</th>
+                    <th style="width: 10%">Observação</th>
+                </tr>
+            </thead>
+
+            <tbody id="IdeiaFeedbacksTbody">
+                @{ var count = 1;
+                    foreach (var avaliacao in ViewBag.AvaliacoesFeedbacks)
+                    {
+                        <tr>
+                            <td>@count</td>
+                            <td>@avaliacao.NOME_AVALIADOR</td>
+                            <td>@avaliacao.DATA_AVALIACAO</td>
+                            <td>@avaliacao.I</td>
+                            <td>@avaliacao.D</td>
+                            <td>@avaliacao.E</td>
+                            <td>@avaliacao.A</td>
+                            <td>@avaliacao.L</td>
+                            <td>
+                                <a href="#" class="btn-modal-observacao" data-toggle="modal" data-target="#ModalObservacao" data-idusuarioavaliador="@avaliacao.ID_USUARIO_AVALIADOR">
+                                    Clique para visualizar
+                                </a>
+                            </td>
+                        </tr>
+
+                        count++;
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="row" style="margin-top:30px;">
+        <div class="col-md-9 col-sm-9"></div>
+
+        <div class="col-md-3 col-sm-3">
+            <div style="width: 80%;">
+                <h2 style="font-weight:bold;">
+                    Você quer potencializar a performance da sua ideia inovadora?
+                </h2>
+                <span>
+                    Conheça as nossas soluções e conte com os nossos mentores para a implementação dessa inovação.
+                </span>
+                <br />
+                <br />
+                <span>
+                    <a href="https://idealizei.com.br/prototipacao/" target="_blank" class="btn btn-light btn-ideias" name="potencializarIdeia">
+                        EU QUERO POTENCIALIZAR A MINHA IDEIA
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL OBSERVAÇÃO -->
+    <div class="modal fade" id="ModalObservacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Observação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea class="observacao_avaliador form-control" aria-label="With textarea" type="text" cols="33" rows="5" readonly>
+                   </textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-fechar-modal" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input class="btn btn-light btn-auxiliar-grafico" name="btn-auxiliar-grafico" id="btn-auxiliar-grafico" value="@ViewBag.InfoCardsIdeiasAvaliadasFeedbacks.Data[0].ID" hidden>
+
+    <script type='text/javascript'>
+        var comentariosAvaliacao = @Html.Raw(Json.Encode(@ViewBag.ComentariosAvaliacao));
+
+        setTimeout(function () { document.getElementById("btn-auxiliar-grafico").click(); }, 1000);
+    </script>
+
+    <br />
+    <br />
+</div>

@@ -1,0 +1,321 @@
+﻿<div class="right_col conteudo_paginas" role="main">
+
+    <p style="display:none" id="id_user">@Session["ID"].ToString()</p>
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Perfil do Usuário</h3>
+            </div>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel"  style="width:100% !important;">
+                    <div class="x_title">
+                        <!-- <h2>User Report <small>Activity report</small></h2> -->
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Settings 1</a>
+                                    <a class="dropdown-item" href="#">Settings 2</a>
+                                </div>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="col-md-3 col-sm-3  profile_left">
+                            <div class="profile_img">
+                                <div id="crop-avatar">
+                                    <img class="img-circle avatar-view" src="@Session["urlimagem"].ToString()" alt="Avatar" title="Change the avatar" width="200" height="200">
+                                </div>
+                            </div>
+                            <h3>
+                                @{ var nome = Session["Nome"] != null ? Session["Nome"].ToString() : "";}
+                                @nome
+                            </h3>
+
+                            <p>
+                                @{ var email = Session["EMAIL"] != null ? Session["EMAIL"].ToString() : "";}
+                                @email
+                            </p>
+
+                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalAlterarDados">
+                                <i class="fa fa-edit m-right-xs"> </i>Editar Perfil
+                            </button>
+
+                            <br>
+
+                            <!-- HABILIDADES -->
+                            <br />
+                            <div id="graph_bar_user_container" style="display:none;">
+
+                                <div class="x_panel"  style="width:100% !important;">
+                                    <div class="x_title">
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li class="dropdown" style="opacity:0; cursor:default !important;">
+                                                <a href="#" class="dropdown-toggle" style="opacity:0; cursor:default !important;" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="#">Settings 1</a>
+                                                    <a class="dropdown-item" href="#">Settings 2</a>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                            </li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div class="x_content conteudo_cad">
+                                        <div id="graph_bar_user" style="width:100%; height:200px;"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-9 col-sm-9 ">
+
+                            <div style="display:none;">
+                                <div class="profile_title">
+                                    <div class="col-md-6">
+                                        <h2>User Activity Report</h2>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                            <span>October 10, 2021 - November 8, 2021</span> <b class="caret"></b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="graph_bar" style="width: 100%; height: 280px; position: relative; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+
+                                </div>
+                            </div>
+
+                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+
+                                    <li role="presentation" class="alinhar-img-loading active">
+
+                                        <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">
+                                            Ideias cocriadas
+                                            <img id="img_loading_pergunta_page1" class="loading-perfil-user" src="~/images/icon_loading.gif" />
+                                            <i class="fa fa-question-circle" style="margin-left:5px;" title="Lista todas as cocriações realizadas"></i>
+                                        </a>
+
+
+                                    </li>
+
+                                    <li role="presentation" class="alinhar-img-loading">
+
+                                        <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">
+                                            Projetos envolvidos
+                                            <img id="img_loading_pergunta_page2" class="loading-perfil-user" src="~/images/icon_loading.gif" />
+                                            <i class="fa fa-question-circle" style="margin-left:5px;" title="Lista todos os projetos em que você está envolvido"></i>
+                                        </a>
+
+                                    </li>
+                                </ul>
+
+                                <div id="myTabContent" class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active " id="tab_content1" aria-labelledby="home-tab">
+
+                                        <ul class="messages" id="respostas_cocriacao">
+                                        </ul>
+
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+
+                                        <table class="data table table-striped no-margin">
+
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nome Ideia</th>
+                                                    <th>Lider</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody id="IdeiasEnvolvidas">
+
+                                                <!--
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>New Company Takeover Review</td>
+                                                    <td>Deveint Inc</td>
+
+                                                     <td class="hidden-phone">18</td>
+                                                        <td class="vertical-align-mid">
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-success" data-transitiongoal="35" aria-valuenow="35" style="width: 35%;"></div>
+                                                            </div>
+                                                        </td>
+
+
+                                                </tr>
+                                                -->
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("SalvarInformacoes",
+                           "User",
+                           FormMethod.Post,
+                           new { enctype = "multipart/form-data" }))
+    {
+        <!-- ALTERAR DADOS -->
+        <div class="modal fade" id="modalAlterarDados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Alterar Dados</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div style="width:100%;">
+                            <img style="margin-left: 26%;" class="img-circle avatar-view" src="@Session["urlimagem"].ToString()" alt="Avatar" title="Change the avatar" width="200" height="200">
+                        </div>
+                        <form>
+
+                            <br />
+                            <label for="file">Selecione a imagem: </label>
+                            <br />
+                            <input type="file" name="file" id="file" />
+
+                            <br />
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Nome</label>
+                                <input type="text" class="form-control" id="nome_user" name="nome" aria-describedby="nomeHelp" value="@Session["Nome"].ToString()" placeholder="Informe seu nome">
+                            </div>
+
+                            <br />
+                            <br />
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+</div>

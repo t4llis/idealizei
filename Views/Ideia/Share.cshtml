@@ -1,0 +1,150 @@
+﻿<div class="right_col conteudo_paginas" role="main">
+
+    @{ 
+        var shareEnum = ViewBag.ShareEnum;
+
+        var titulo1 = "Parabéns! Sua ideia foi cadastrada com sucesso!";
+
+        var titulo2 = "Agora chegou o momento de convidar as pessoas para participar do seu " +
+                      "processo de ideação no seu laboratório de ideias. O movimento colaborativo " +
+                      "vai ajudar a elucidar a sua inovação e potencializar assertividade dos seus resultados. " +
+                      "Vamos nessa!";
+
+        var tituloCompartilhaLink = "Copie o link e compartilhe com " +
+                "aqueles que vão cocriar com você:";
+
+
+        var linkCompartilharIdeia = "Ideia/CoCriador/?idIdeia=" + Session["IdIdeiaCadastrada"].ToString();
+
+        if (shareEnum == "AVALIACAO")
+        {
+            titulo1 = "Que TOP! Sua ideia está pronta para receber feedbacks!";
+
+            titulo2 = "Agora chegou o momento de convidar as pessoas que não participaram do " +
+                      "processo de cocriação para avaliarem a ideia finalizada. Fique tranquilo, somente " +
+                      "as pessoas que você escolher terão acesso ao que vocês construíram. " +
+                      "Acompanhe os resultados das avaliações na sessão ";
+
+            tituloCompartilhaLink = "Copie o link e compartilhe com aqueles que vão avaliar a sua ideia:";
+
+            linkCompartilharIdeia = "avaliacao/ideias/?idIdeia=" + ViewBag.Ideia.ToString();
+        }
+    }
+
+    <div class="row">
+        <div class="col-8" style="margin-top:50px;">
+            <h3>@titulo1</h3>
+            <br />
+            <h5>
+                @titulo2 <a href='/Avaliacao/IdeiasAvaliadasFeedbacks' target="_blank">FEEDBACKS RECEBIDOS</a>            
+            </h5>
+        </div>
+
+        <div class="col-2">
+            <img width="150" height="250" src="~/images/Ativo 30.png" title="imagem ideia" alt="imagem ideia" />
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-4">
+            <h6>
+                @tituloCompartilhaLink
+            </h6>
+        </div>
+        <div class="col-5" style="display:block; text-align:center;">
+            <em id="linkCompartilharIdeia"></em><em class="caminho_compartilhar">@linkCompartilharIdeia</em>
+        </div>
+        <div class="col-3 btn_copy_link" style="margin-top:-15px; cursor:pointer;" title="copiar link">
+            <i class="fa fa-file fa-4x file_item" aria-hidden="true"></i>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-7">
+            <h6 style="display:block; text-align:center; ">ou</h6>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-3">
+        </div>
+        <div class="col-2" style="margin-top: 5px;"><h6>Convide por e-mail, <br />
+            adicionando os e-mails ao pressionar a tecla Enter ou Espaço</h6></div>        
+        <div class="col-5 input_email_compartilhar" id="input_email_compartilhar" title="comparilhar"></div>
+    </div>
+    
+    <div class="row" style="margin-top:5px;">
+        <div class="col-4"></div>
+        <div class="col-3"></div>
+        <a href='javascript:void(0)' class="btn btn-light btn-ideias btn-enviar_ideia_email col-3" 
+           name="ideiadiversas"
+           data-ideia="@Session["IdIdeiaCadastrada"].ToString()"
+           data-tipoPagina="@shareEnum">
+            CLIQUE AQUI PARA ENVIAR O CONVITE
+        </a>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    @{ 
+        if (shareEnum == "COCRIACAO")
+        {
+            <div class="row">
+                <div class="col-5" style="text-align:right;display:block; margin-top:5px;">Já convidou sua equipe?</div>
+                <a href="~/ideia/Details/?idIdeia=@Session["IdIdeiaCadastrada"].ToString()" class="btn btn-light btn-ideias btn-laboratorio-criacao col-5" name="ideiadiversas">
+                    CLIQUE AQUI PARA ACESSAR O SEU LABORATÓRIO DE IDEIAS
+                </a>
+            </div>
+        }
+    } 
+    
+    <script type='text/javascript'>
+        var shareEnum = "@shareEnum";
+    </script>
+
+    <!-- input invisivel pra simular o control + c para o link de cocriação -->
+    <input type="text" value="" style="opacity:0;" id="copy_link_value" name="copy_link_value" />
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+</div>

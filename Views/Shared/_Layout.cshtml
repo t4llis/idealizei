@@ -1,0 +1,403 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../../images/icon_pages.png" type="image/ico" width="30" heigth="50" />
+    <title>Idealizei </title>
+
+    <link href="/Content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/Content/vendors/nprogress/nprogress.css" rel="stylesheet" />
+    <link href="/Content/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
+    <link href="/Content/selectize/selectize.default.css" rel="stylesheet">
+    <link href="/Content/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" />
+    <link href="/Content/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <link href="/Content/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="/Content/css/datepicker/datepicker.min.css" rel="stylesheet" />
+    <link href="/Content/css/grow/jquery.growl.css" rel="stylesheet" />
+    <link href="/Content/css/Glider/glider.min.css" rel="stylesheet" />
+    <link href="/Content/css/email/email.css" rel="stylesheet" />
+
+    <link href="/Content/build/css/custom.css" rel="stylesheet" />
+    <link href="/Content/custom/css/Ideia.css" rel="stylesheet" />
+    <link href="/Content/custom/css/Details.css" rel="stylesheet" />
+    <link href="/Content/custom/css/Pontencializar.css" rel="stylesheet" />
+    <link href="/Content/custom/css/Edit.css" rel="stylesheet" />
+    <link href="/Content/custom/css/User.css" rel="stylesheet" />
+    <link href="/Content/custom/css/StyleAdm.css" rel="stylesheet" />
+    <link href="/Content/custom/css/Tags.css" rel="stylesheet" />
+    <link href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+
+    <!--
+    <script>
+        (function (d, w, c) {
+            w.ChatraID = 'CMCb4CAxjGYsRfWY5';
+            var s = d.createElement('script');
+            w[c] = w[c] || function () {
+                (w[c].q = w[c].q || []).push(arguments);
+            };
+            s.async = true;
+            s.src = 'https://call.chatra.io/chatra.js';
+            if (d.head) d.head.appendChild(s);
+        })(document, window, 'Chatra');
+    </script>
+    -->
+
+</head>
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <img src="~/images/icon_logo.png" alt="..." class="item_icon_logo" />
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix">
+                        @{
+                            if (Session["urlimagem"] != null && Session["urlimagem"].ToString() != "")
+                            {
+                                <div class="profile_pic">
+                                    <a href="~/User/Profile/" title="perfil usuario"><img src="@Session["urlimagem"].ToString()" alt="..." class="img-circle profile_img" style="max-width:57px; max-height:57px;"></a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="profile_pic">
+                                    <img src="~/images/user icon.jpeg" alt="..." class="img-circle profile_img">
+                                </div>
+                            }
+                        }
+
+                        <div class="profile_info">
+                            <span>Bem vindo,</span>
+                            @{ var nome = Session["Nome"] != null ? Session["Nome"].ToString() : "";}
+                            <br />
+                            <a href="~/User/Profile/" title="perfil usuario" id="nome_user_perfil">@nome</a>
+                        </div>
+                    </div>
+                    <!-- /menu profile quick info -->
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3 class="menu-ideias">MENU</h3>
+
+                            <ul class="nav side-menu">
+
+                                <li id="item_home" class="menu-ideias ">
+                                    <a href="~/Home/" class="link-itens-menu" id="menu-dashboard"> <i class="fa fa-bar-chart"></i> <p class="texto-menu"> DASHBOARD </p> </a>
+                                </li>
+
+                                @{if (Session["role"].ToString() != "USER")
+                                    {
+                                        <li id="item_adm" class="menu-ideias">
+                                            <a href="~/Adm/" class="link-itens-menu"><i class="fa fa-users" aria-hidden="true"></i> <p class="texto-menu"> ADMINISTRADOR </p></a>
+                                        </li>
+                                    }
+                                }
+
+                                <li id="item_laboratorio" class="menu-ideias">
+                                    <a href="~/ideia/Index/" class="link-itens-menu"><i class="fa fa-lightbulb-o"></i>  <p class="texto-menu"> LABORATÓRIO DE IDEIAS </p> </a>
+                                </li>
+
+                                <li id="item_feedbacks" class="menu-ideias">
+                                    <a href="~/Avaliacao/IdeiasAvaliadasFeedbacks" class="link-itens-menu"><i class="fa fa-commenting-o"></i> <p class="texto-menu"> FEEDBACKS RECEBIDOS </p> </a>
+                                </li>
+
+                                <li id="item_avaliador" class="menu-ideias">
+                                    <a href="~/Avaliacao/" class="link-itens-menu"><i class="fa fa-edit"></i> <p class="texto-menu"> ÁREA DO AVALIADOR </p> </a>
+                                </li>
+
+                                <li id="item_potencialize" class="menu-ideias potencializar-menu">
+                                    <a href="https://idealizei.com.br/prototipacao/" target="_blank" class="link-itens-menu"><i class="fa fa-fire"></i> <p class="texto-menu"> POTENCIALIZE SUA IDEIA </p></a>
+                                </li>
+
+                                <li id="item_sugestoes" class="menu-ideias">
+                                    <a href="~/Contato/Sugestoes" class="link-itens-menu"><i class="fa fa-bars"></i> <p class="texto-menu"> SUGESTÕES </p> </a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- /sidebar menu -->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+
+
+
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    @Session["Nome"].ToString()
+                                </a>
+
+
+                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                    <!--
+                                    <a class="dropdown-item" href="javascript:;"> Profile</a>
+                                    <a class="dropdown-item" href="javascript:;">
+                                        <span class="badge bg-red pull-right">50%</span>
+                                        <span>Settings</span>
+                                    </a>
+                                    <a class="dropdown-item" href="javascript:;">Help</a>
+                                    -->
+                                    @{ if (Session["role"] != null && Session["role"].ToString() == "USER")
+                                        {
+                                            <a class="dropdown-item" href="~/User/Profile/"><i class="fa fa-user pull-right"></i> Perfil</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="dropdown-item" href="~/User/ProfileAdm/"><i class="fa fa-user pull-right"></i> Perfil</a>
+                                        }
+                                    }
+                                    <a class="dropdown-item" href="~/Login/LogOff/" ><i class="fa fa-sign-out pull-right"></i> Sair</a>
+                                </div>
+                            </li>
+
+                            <li role="presentation" class="nav-item dropdown open">
+
+                                <!--
+                                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-envelope-o"></i>
+                                        <span class="badge bg-green">6</span>
+                                    </a>
+                                -->
+
+                                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+
+
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="~/images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+
+
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="~/images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+
+
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="~/images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item">
+                                            <span class="image"><img src="~/images/img.jpg" alt="Profile Image" /></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <div class="text-center">
+                                            <a class="dropdown-item">
+                                                <strong>See All Alerts</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+
+
+            <div class="container body-content" style="height:auto;">
+                @RenderBody()
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/Content/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/Content/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/Content/vendors/fastclick/lib/fastclick.js"></script>
+    <script src="/Content/vendors/nprogress/nprogress.js"></script>
+    <script src="/Content/vendors/Chart.js/dist/Chart.min.js"></script>
+
+    <script src="/Content/vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <script src="/Content/vendors/raphael/raphael.min.js"></script>
+    <script src="/Content/vendors/morris.js/morris.min.js"></script>
+
+
+    <script src="/Content/vendors/gauge.js/dist/gauge.min.js"></script>
+    <script src="/Content/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="/Content/vendors/iCheck/icheck.min.js"></script>
+    <script src="/Content/vendors/skycons/skycons.js"></script>
+    <script src="/Content/vendors/Flot/jquery.flot.js"></script>
+    <script src="/Content/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="/Content/vendors/Flot/jquery.flot.time.js"></script>
+    <script src="/Content/vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="/Content/vendors/Flot/jquery.flot.resize.js"></script>
+    <script src="/Content/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="/Content/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="/Content/vendors/flot.curvedlines/curvedLines.js"></script>
+    <script src="/Content/vendors/DateJS/build/date.js"></script>
+    <script src="/Content/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="/Content/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/Content/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <script src="/Content/vendors/moment/min/moment.min.js"></script>
+    <script src="/Content/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="/Content/js/datepicker/datepicker.min.js"></script>
+    <script src="/Content/js/grow/jquery.growl.js"></script>
+    <script src="/Content/js/blockUI/jquery.blockUI.js"></script>
+    <script src="/Content/js/email/utils.js"></script>
+    <script src="/Content/js/email/emails-input.js"></script>
+    <script src="/Content/custom/js/Loading.js"></script>
+    <script src="/Content/custom/js/Grafico.js"></script>
+
+    <script src="/Content/selectize/selectize.js"></script>
+
+    <script src="/Content/custom/js/Tags.js"></script>
+    <script src="/Content/custom/js/Email.js"></script>
+    <script src="/Content/build/js/custom.js"></script>
+    <!--<script src="/Content/custom/js/Facebook.js"></script>-->
+    <script src="/Content/custom/js/Ideia.js"></script>
+    <script src="/Content/custom/js/LogOff.js"></script>
+    <script src="/Content/custom/js/Home.js"></script>
+    <script src="/Content/custom/js/Avaliacao.js"></script>
+    <script src="/Content/custom/js/Share.js"></script>
+    <script src="/Content/custom/js/Potencializar.js"></script>
+    <script src="/Content/custom/js/IdeiasAvaliadas.js"></script>
+    <script src="/Content/custom/js/Edit.js"></script>
+    <script src="/Content/custom/js/User.js"></script>
+    <script src="/Scripts/bootbox.min.js"></script>
+    <script src="/Content/custom/js/ScriptAdm.js"></script>
+
+    <!-- deixar sempre depois do js de login do facebook-->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+    <script src="/Content/js/Glider/glider.min.js"></script>
+
+
+    <script src="/Content/custom/js/jquery.maskMoney.js"></script>
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    -->
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            let urlAtual = window.location.href;
+            if (urlAtual.includes($URL_PRINCIPAL + 'Adm/')) {
+                $('.money').maskMoney();
+                //$('.money').mask('# ##0,00', { reverse: true });
+                //$('.money').mask('000 000 000 000 000.00', { reverse: false });
+                $('table').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_br.json"
+                    }
+                })
+                $('#table_cupons').DataTable();
+                $('#table_pagamentos').DataTable();
+                $('#table_contratos').DataTable();
+                $('#table_planos').DataTable();
+            }
+
+            if (urlAtual.includes($URL_PRINCIPAL + 'Avaliacao/')) {
+
+                $('table').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_br.json"
+                    }
+                })
+                $('#table_avaliar_ideia').DataTable();
+            }
+
+        });
+    </script>
+    <script>
+        var result = (function () {
+            var verifyPlan = localStorage.getItem('check')
+            if ((verifyPlan) && (verifyPlan > 0)) {
+
+                bootbox.confirm({
+                    message: "<br><br><center><h4>Você não concluiu o último checkout.<br>Deseja continuar?</h4></center><br>",
+                    buttons: {
+                        confirm: {
+                            label: 'Sim, quero continuar!',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'Não',
+                            className: 'btn-outline-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            window.location.href = "/checkout/plano/" + verifyPlan
+                        } else {
+                            localStorage.removeItem('check')
+                        }
+                    }
+                });
+            }
+        })();
+        result;
+    </script>
+
+</body>
+</html>

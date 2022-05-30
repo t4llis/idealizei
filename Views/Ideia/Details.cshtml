@@ -1,0 +1,314 @@
+﻿<!-- page content -->
+<div class="right_col" role="main">
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <p id="id_reposta_card" style="display:none;"></p>
+                <p id="id_userlogado" style="display:none;"></p>
+                <p id="id_userCadastrado" style="display:none;"></p>
+                <p id="id_questao_ideias_card" style="display:none;"></p>
+                <p id="id_ideiaSelecionada" style="display:none;"></p>
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informe sua contribuição para a ideia.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea class="comentario_cocriador form-control" aria-label="With textarea" type="text" maxlength="300" cols="33" rows="5">
+
+                   </textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn_Modal_excluir_descricao_cocriador_Detalhes">Excluir</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary btn_Modal_add_descricao_cocriador_Detalhes">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Ideia-->
+    <div class="modal fade" id="modalEditarIdeia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <p id="id_questao_ideias_edit" style="display:none;"></p>
+                <p id="id_ideia_selecionada_edit" style="display:none;"></p>
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edite a sua ideia.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea class="ideia_cadastrada_edit form-control" aria-label="With textarea" type="text" cols="33" rows="5">
+
+                   </textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary btn_Modal_editar_ideia">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @{
+        if (ViewBag.Status == 2) // StatusEnum.AVALIACAO
+        {
+            <h1 class="ideia_h1_nv1 ideia_visible_nv1">Ideia concluída, aguardando feedbacks!</h1>
+        }
+        else
+        {
+            <p id="id_ideia_selecioanda" style="display:none">@ViewBag.Ideia[0].ID</p>
+            <p id="id_qtd_respostas_cocriadores" style="display:none">@ViewBag.QtdIdeias</p>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <span>IDEIA: @ViewBag.Ideia[0].NOMEPROJETO.ToUpper()</span>
+                    <br />
+                    <span>LIDER: @ViewBag.Ideia[0].LIDER.ToUpper()</span>
+                    <br />
+                    <span>COCRIADORES: @ViewBag.NomesCoCriadores</span>
+                    <br />
+                </div>
+            </div>
+
+            <!--<div class="row ">-->
+                string texto = "";
+                for (int i = 0; i < ViewBag.Ideia.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        texto = ViewBag.Ideia[i].TEXTOIDEIAINOVADORA;
+                    }
+                    else if (i == 1)
+                    {
+                        texto = ViewBag.Ideia[i].TEXTOPROBLEMAS;
+                    }
+                    else if (i == 2)
+                    {
+                        texto = ViewBag.Ideia[i].TEXTOPRATICA;
+                    }
+                    else if (i == 3)
+                    {
+                        texto = ViewBag.Ideia[i].TEXTORESULTADOS;
+                    }
+                    else if (i == 4)
+                    {
+                        texto = ViewBag.Ideia[i].TEXTOIMPACTO;
+                    }
+
+                    <div class="row cards_colaborar_container">
+                        <h1 class="cards_colaborar_titulo">@ViewBag.Ideia[i].TITULO</h1>
+                        <div class="cards_colaborar cards_colaborar_stylo_novo">
+
+                            <div class="container_resposta_cocriador alinhamento_cards_cocriador">
+
+                                @if (ViewBag.IdUsuarioLogado == ViewBag.Ideia[0].ID_USUARIO)
+                                {
+                                    <div class="resposta_cocriador_1 div_editar_ideia row"
+                                         style="margin-bottom:5px; cursor:pointer;"
+                                         title="Clique para editar esta ideia"
+                                         data-toggle="modal"
+                                         data-target="#modalEditarIdeia"
+                                         data-id_questao_ideias_edit="@ViewBag.Ideia[i].ID_QUESTAO_IDEIAS"
+                                         data-id_ideia_selecionada_edit="@ViewBag.Ideia[i].ID">
+                                        <p>@texto</p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="resposta_cocriador_1" style="margin-bottom:-25px;">
+                                        <p>@texto</p>
+                                    </div>
+                                }
+
+                                <div class="alinhamento_cards_cocriador_pai">
+                                    @for (int j = 0; j < ViewBag.Respostas.Count; j++)
+                                    {
+                                        if (ViewBag.Respostas[j].ID_QUESTAO_IDEIAS == ViewBag.Ideia[i].ID_QUESTAO_IDEIAS)
+                                        {
+                                            <div class="resposta_cocriador_2 card_editar_cocriacao card_cocriacao_stylo"
+                                                    data-userConectado="@Session["ID"].ToString()"
+                                                    data-userCadastada="@ViewBag.Respostas[j].ID_USUARIO"
+                                                    data-idResposta="@ViewBag.Respostas[j].ID"
+                                                    data-id_ideia_Selecionada="@ViewBag.Ideia[0].ID"
+                                                    style="background-color:@ViewBag.Respostas[j].COR_CARD;"
+                                                    title="Clique para editar"
+                                                    data-toggle="modal" data-target="#exampleModal">
+
+                                                <p class="p1 p1_novo" style="height:60%;">@ViewBag.Respostas[j].RESPOSTA</p>
+                                                <p class="p2 p2_novo">@ViewBag.Respostas[j].DATA_HORA - @ViewBag.Respostas[j].NOME_USUARIO</p>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+
+                                </div>
+
+                                <!--/Ideia/CardCoCriador/?idIdeia= ViewBag.Ideia[i].ID&id_Questao_ideias= ViewBag.Ideia[i].ID_QUESTAO_IDEIAS-->
+                                <a href="#" class="btn_colaborar_design btn_colaborar_posicao_esquerda btn_add_card_colaborar_cocriacao btn_colaborar_posicao_esquerda_novo"
+                                   data-id_questao_ideias="@ViewBag.Ideia[i].ID_QUESTAO_IDEIAS"
+                                   data-id_ideia_Selecionada="@ViewBag.Ideia[i].ID"
+                                   style="margin-top:8px;"
+                                   data-toggle="modal" data-target="#exampleModal">
+                                    <img src="~/images/icon_plus.png" data-id_questao_ideias="@ViewBag.Ideia[i].ID_QUESTAO_IDEIAS" />
+                                    <span>Colaborar</span>
+                                </a>
+                            </div>
+                        </div>
+            }
+
+        <!--</div>-->
+
+            <br />
+            <br />
+
+            <div class="row">
+
+                <div class="col-md-1 col-sm-0">
+                </div>
+
+                <div class="col-md-6 col-sm-12" >
+                    @if (ViewBag.Ideia[0].ID_USUARIO == Session["id"].ToString())
+                    {
+                        <h2 style="font-weight:bold;">
+                            Grave um pitch de até 3 minutos explicando a sua ideia inovadora, cole aqui o link
+                            para que as pessoas consigam entender melhor o seu projeto. Seja objetivo e
+                            apresente as principais características da sua ideia. Chegou a hora! Luz, câmera,
+                            ação!
+                        </h2>
+
+                        <div class="input-group">
+                            <input id="link-novo-pit" type="text" class="form-control" placeholder="@ViewBag.Ideia[0].LINKPIT" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-success btn-salvar-novo-pit" type="button">Salvar link video</button>
+                            </div>
+                        </div>
+                        <br />
+                    }
+                    <iframe width="100%" height="400"
+                            src="@ViewBag.Ideia[0].LINKPIT"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    </iframe>
+
+                </div>
+
+                <div class="col-md-2 col-sm-12">
+                </div>
+
+                <div class="col-md-3 col-sm-12">
+
+                    @{ if (ViewBag.Ideia[0].ID_USUARIO == Session["id"].ToString())
+                        {
+                            <h2 style="font-weight:bold;">
+                                Ja terminou o processo de Cocriação da sua ideia?
+                            </h2>
+                            <span>
+                                Compartilhe agora sua ideia finalizada para receber
+                                feedbacks de colegas de trabalho, lideres, amigos e etc...
+                            </span>
+                            <br />
+                            <br />
+                            <span>
+                                <a href="#" data-toggle="modal" data-target="#exampleModalFinalizar" class="btn btn-light btn-ideias" title="ideia de diversas" name="ideiadiversas">
+                                    CONCLUIR E COMPARTILHAR
+                                </a>
+                            </span>
+                        }
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalFinalizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Tem certeza que quer finalizar? Depois você não poderá alterar está ideia</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                        <a href="/Ideia/Share/?idIdeia=@ViewBag.Ideia[0].ID&shareEnum=AVALIACAO" class="btn btn-primary">Sim</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        }
+    }
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+</div>

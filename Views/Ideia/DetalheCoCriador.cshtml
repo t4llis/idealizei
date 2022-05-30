@@ -1,0 +1,139 @@
+﻿<!-- page content -->
+<div class="right_col" role="main">
+    
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <span>IDEIA: ViewBag.Ideia[0].NOMEPROJETO.ToUpper()</span>
+            <br />
+            <span>LIDER: ViewBag.Ideia[0].LIDER.ToUpper()</span>
+            <br />
+            <span>COCRIADORES: Nome 1, Nome 2, Nome 3 ...</span>
+            <br />
+        </div>
+    </div>
+
+    <div class="row cards_colaborar_container">
+        @{
+            string texto = "";
+            for (int i = 0; i < ViewBag.Ideia.Count; i++)
+            {
+
+                if (i == 0)
+                {
+                    texto = ViewBag.Ideia[i].TEXTOIDEIAINOVADORA;
+                }
+                else if (i == 1)
+                {
+                    texto = ViewBag.Ideia[i].TEXTOPROBLEMAS;
+                }
+                else if (i == 2)
+                {
+                    texto = ViewBag.Ideia[i].TEXTOPRATICA;
+                }
+                else if (i == 3)
+                {
+                    texto = ViewBag.Ideia[i].TEXTORESULTADOS;
+                }
+                else if (i == 4)
+                {
+                    texto = ViewBag.Ideia[i].TEXTOIMPACTO;
+                }
+
+                <div class="col-md-4 col-sm-4">
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <h1 class="cards_colaborar_titulo">@ViewBag.Ideia[i].TITULO</h1>
+                    <div class="cards_colaborar">
+
+                        <div class="container_resposta_cocriador">
+
+                            <div class="resposta_cocriador_1">
+                                <p>@texto</p>
+                            </div>
+                            @for (int j = 0; j < ViewBag.Respostas.Count; j++)
+                            {
+                                <br />
+                                <div class="resposta_cocriador_2">
+                                    <p>@ViewBag.Respostas[j].RESPOSTA</p>
+                                    <p>@ViewBag.Respostas[j].DATA_HORA</p>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="btn_colaborar_design btn_colaborar_posicao_direita" data-id_questao_ideias="@ViewBag.Ideia[i].ID_QUESTAO_IDEIAS">
+                            <img src="~/images/icon_hand_colaborar.png" data-id_questao_ideias="@ViewBag.Ideia[i].ID_QUESTAO_IDEIAS" />
+                            <span>Colaborar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                </div>
+
+            }
+        }
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+</div>

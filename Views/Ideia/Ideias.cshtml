@@ -1,0 +1,105 @@
+﻿<div class="right_col conteudo_paginas" role="main">
+
+    <!-- Titulo avaliação-->
+    @{
+        var listaIdeiasCount = ViewBag.ListaIdeias.Count;
+
+        if (listaIdeiasCount == 0)
+        {
+            <h1 class="ideia_h1_nv1 ideia_visible_nv1">Você não possui ideias para cocriação!</h1>
+
+            <div>
+                <h2 class="ideia_h1_nv1">Quer elaborar uma ideia?</h2>
+                <br />
+                <a href="~/ideia/"
+                   class="col-md-3 col-sm-4 btn btn-light btn-ideias btn-cadastrar_nova_ideia">
+                    CLIQUE AQUI
+                </a>
+            </div>
+        }
+        else
+        {
+            <h1 class="ideia_h1_nv1 ideia_visible_nv1">Projetos do laboratório de Ideias!</h1>
+        }
+
+    }
+
+    <!-- NIVEL 1 seleciona ideia-->
+    <div class="row ideia_visible_nv1">
+        @{
+            for (int i = 0; i < listaIdeiasCount; i++)
+            {
+                string caminhoImagem = "/images/icon_pages.png";                
+
+                <div class="col-3 ideia_diversas">
+                    <span>@ViewBag.ListaIdeias[i].NOMEPROJETO</span>
+                    <img src="@caminhoImagem" title=@ViewBag.ListaIdeias[i].NOMEPROJETO alt=@ViewBag.ListaIdeias[i].NOMEPROJETO />
+                    <br />
+                    <a href="/Ideia/Details/?idIdeia=@ViewBag.ListaIdeias[i].ID"
+                       class="btn btn-light btn-ideias btn-ideia-selecionada"
+                       data-valor="@ViewBag.ListaIdeias[i].ID"
+                       title=@ViewBag.ListaIdeias[i].NOMEPROJETO
+                       name="projeto_@ViewBag.ListaIdeias[i].ID">
+                        CLIQUE AQUI
+                    </a>
+                </div>
+            }
+        }
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+</div>

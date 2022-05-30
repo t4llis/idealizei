@@ -1,0 +1,191 @@
+﻿<!-- page content -->
+<div class="right_col" role="main">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <span>IDEIA: @ViewBag.Ideia[0].NOMEPROJETO.ToUpper()</span>
+            <br />
+            <span>LIDER: @ViewBag.Ideia[0].LIDER.ToUpper()</span>
+            <br />
+            <span>COCRIADORES: @ViewBag.NomesCoCriadores</span>
+            <br />
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <p id="id_reposta_card" style="display:none;"></p>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informe sua contribuição para a ideia.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea class="comentario_cocriador form-control" aria-label="With textarea" type="text" maxlength="300" cols="33" rows="5">
+
+                   </textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn_Modal_excluir_descricao_cocriador">Excluir</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary btn_Modal_add_descricao_cocriador">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-4"></div>
+        <div class="col-md-4 col-sm-4">
+            <h1 class="cards_colaborar_titulo">@ViewBag.Ideia[0].TITULO</h1>
+        </div>
+        <div class="col-md-4 col-sm-4"></div>
+    </div>
+
+    <div class="row cards_colaborar_container">
+        @{
+            string texto = "texto";
+            for (int i = 0; i < ViewBag.Ideia.Count; i++)
+            {
+
+                if (i == 0)
+                {
+                    texto = ViewBag.Ideia[i].TEXTOIDEIAINOVADORA;
+                }
+                else if (i == 1)
+                {
+                    texto = ViewBag.Ideia[i].TEXTOPROBLEMAS;
+                }
+                else if (i == 2)
+                {
+                    texto = ViewBag.Ideia[i].TEXTOPRATICA;
+                }
+                else if (i == 3)
+                {
+                    texto = ViewBag.Ideia[i].TEXTORESULTADOS;
+                }
+                else if (i == 4)
+                {
+                    texto = ViewBag.Ideia[i].TEXTOIMPACTO;
+                }
+
+
+                <div class="col-md-4 col-sm-4">
+                </div>
+
+                <div class="col-md-4 col-sm-4 cards_colaborar_desc" style="height: auto; padding-top:50px !important;">
+                    <div class="">
+                        <div class="resposta_cocriador_1">
+                            <p>@texto</p>
+                        </div>
+                    </div>
+
+                    @for (int j = 0; j < ViewBag.Respostas.Count; j++)
+                    {
+                        <br />
+                        
+                        <div class="resposta_cocriador_2 resposta_cocriador_change"
+                             data-count="@j"
+                             data-idDesc="@ViewBag.Respostas[j].ID"
+                             data-userlogado="@Session["Id"].ToString()"
+                             data-userCadastrado="@ViewBag.Respostas[j].ID_USUARIO" style="background-color:@ViewBag.Respostas[j].COR_CARD; color:#fff; cursor:pointer;"
+                             data-toggle="modal" data-target="#exampleModal">
+
+                            <p id="resposta_card_@j" class="p1">@ViewBag.Respostas[j].RESPOSTA</p>
+                            <p class="p2">@ViewBag.Respostas[j].DATA_HORA  -  @ViewBag.Respostas[j].NOME_USUARIO</p>                           
+                        </div>
+                    }
+
+                    <a class="btn_colaborar_design btn_colaborar_posicao_centro btn_add_descricao_cocriador"
+                       data-id_questao_ideias="@ViewBag.Ideia[i].ID_QUESTAO_IDEIAS"
+                       data-id_ideia="@ViewBag.Ideia[i].ID"
+                       data-toggle="modal" data-target="#exampleModal">
+                        <img src="~/images/icon_plus.png" data-id_questao_ideias="@ViewBag.Ideia[i].ID_QUESTAO_IDEIAS" />
+                    </a>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                </div>
+
+            }
+        }
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-4 col-sm-4"></div>
+        <div class="col-md-2 col-sm-2">
+            <div>
+                <a href="~/Ideia/Details/?idIdeia=@ViewBag.Ideia[0].ID" class="btn btn-light btn-ideias">Voltar</a>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6"></div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+</div>

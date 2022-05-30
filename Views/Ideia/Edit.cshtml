@@ -1,0 +1,652 @@
+﻿<div class="right_col conteudo_paginas" role="main">
+
+    <p id="id_ideia" style="display:none;">@ViewBag.Cabecalho.ID.ToString()</p>
+    <p id="id_userLogado" style="display:none;">@Session["ID"].ToString()</p>
+    <p id="email_user_logado" style="display:none;">@Session["email"].ToString()</p>
+    <p id="id_qtd_respostas_cocriadores" style="display:none;">@ViewBag.quntCardsCoCriadores</p>
+    <p id="status_ideia" style="display:none;">@ViewBag.Cabecalho.STATUS.ToString()</p>
+
+    <input id="input_copy_links" type="text" style="opacity:0; margin: 0; padding: 0;" />
+
+    <!-- CABEÇALHO -->
+    <div class="container_cabecalho_edit">
+
+        <img id="img_loading_cabecalho" src="~/images/icon_loading.gif" width="30" height="30" style="margin-bottom: -15px;" />
+
+        <div class="row cabecalho_edit_top">
+            <div class="col-md-12">NOME DO PROJETO: <p id="nome_ideia"></p></div>
+            <div class="col-md-12">LÍDER:           <p id="lider_ideia"></p></div>
+            <div class="col-md-12">COCRIADORES:     <p id="cocriadores_ideia"></p></div>
+        </div>
+        <br />
+        <div class="row cabecalho_edit_bottom">
+            @if (Convert.ToInt32(ViewBag.Cabecalho.STATUS.ToString()) < 2)
+            {
+                <div class="col-md-3 col-sm-3"><h6>Forme sua equipe de cocriação:</h6></div>
+                <div class="col-md-2 col-sm-2 divbtn-enviar-convite"><button type="button" data-toggle="modal" data-target="#Modal_Envio_Email" class="btn btn-light btn-ideias"> CLIQUE AQUI PARA ENVIAR O CONVITE</button></div>
+                <div class="col-md-2 col-sm-2 divbtn-copiar-link"><button type="button" class="btn btn-light btn-ideias" id="btn-copiar-link"> CLIQUE AQUI PARA COPIAR O LINK</button></div>
+                <div class="col-md-3 col-sm-3"><img type="button" id="btn_img_alterar_cabecalho" data-toggle="modal" data-target="#Modal_cabecalho" src="~/images/icon_editar.png" style="right: -10px;" /></div>
+            }
+        </div>
+    </div>
+    <br />
+
+    <!-- DESCRIÇÃO DO PROBLEMA -->
+    <div class="container_cabecalho_edit">
+
+        <img id="img_loading_descricao_problema" src="~/images/icon_loading.gif" width="30" height="30" style="margin-bottom: -10px;" />
+
+        <div class="row cabecalho_edit_top">
+            <div class="col-md-12">Descreva o problema que você pretende solucionar:</div>
+        </div>
+
+        <div class="row cabecalho_edit_bottom" style="margin-top: 10px;">
+            @if (Convert.ToInt32(ViewBag.Cabecalho.STATUS.ToString()) < 2)
+            {
+                <div class="col-md-12 col-sm-12" data-toggle="modal" data-target="#Modal_Descricao_Problema" style="cursor: pointer;">
+                    <p id="dor_ideia" class="descricao_pergunta_click" style="color:black;">
+                        Clique aqui para responder
+                    </p>
+                </div>
+
+                <div class="col-md-12 col-sm-12">
+                    <img data-toggle="modal" class="descricao_pergunta_click" data-target="#Modal_Descricao_Problema" src="~/images/icon_editar.png" width="30" height="30" />
+                </div>
+            } else
+            {
+                <div class="col-md-12 col-sm-12">
+                    <p id="dor_ideia" class="descricao_pergunta_click" style="color:black;">                       
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+    <br />
+
+    <!-- SOLUÇÕES -->
+    <div class="container_cabecalho_edit">
+
+        <img id="img_loading_solucoes" src="~/images/icon_loading.gif" width="30" height="30" style="margin-bottom: -10px;" />
+
+        <div class="row cabecalho_edit_top">
+            <div class="col-md-12">Liste aqui quais são as ideias que podem solucionar esse problema:</div>
+        </div>
+
+        <div class="row cabecalho_edit_bottom" style="margin-top: 10px;">
+            @if (Convert.ToInt32(ViewBag.Cabecalho.STATUS.ToString()) < 2)
+            {
+                <div class="col-md-12 col-sm-12">
+                    <div class="chips__choice solucao_ideia_tags solucao_ideia_tags_click"></div>
+                </div>
+
+                <div class="col-md-12 col-sm-12">
+                    <img data-toggle="modal" class="solucoes_click" data-target="#Modal_Solucoes" src="~/images/icon_editar.png" width="30" height="30" />
+                </div>
+            }
+            else
+            {
+                <div class="col-md-12 col-sm-12">
+                    <div class="chips__choice solucao_ideia_tags"></div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- QUESTÕES IDEIAS -->
+    @{ foreach (var item in ViewBag.Perguntas)
+        {
+            <div class="container_pergunta_letra">
+
+                <div class="container_pergunta">
+                    <div style="display:flex;">
+                        <h3 id="texto_pergunta">@item.PERGUNTA</h3>
+                        @{ if(item.ID == "1"){
+                                <div id="texto_pergunta_@item.ID" style="margin:5px 0px 0px 5px;" class="chips__choice solucao_ideia_tags solucao_ideia_tags_click">
+
+                                </div>
+                           }   
+                        }
+                    </div>
+                    <h2 id="descricao_pergunta">
+                        @item.DESCRICAO
+                    </h2>
+                </div>
+
+                <div class="container_letra">
+
+                    <div class="letra_descricao">
+                        <br />
+                        <div class="align-letra-descricao">
+                            <div class="letra_pergunta" id="letra"><h1>@item.LETRA</h1></div>
+                            <div class="letra_descricao_superior">
+                                <h4 id="texto_pergunta">@item.DESCRICAO_LETRA</h4>
+                            </div>
+                        </div>
+
+                        <div class="row resposta-pergunta-letra">
+                            @if (Convert.ToInt32(ViewBag.Cabecalho.STATUS.ToString()) < 2)
+                            {
+                                <div class="col-md-10 col-sm-10" style="cursor: pointer;">
+
+                                    <img id="img_loading_pergunta_@item.ID" dat-letra="@item.LETRA" class="resposta-pergunta-letra-loading" src="~/images/icon_loading.gif" />
+
+                                    <p id="resposta_pergunta_@item.ID" class="resposta_pergunta resposta_pergunta_click" data-idpergunta="@item.ID" style="color:black;">
+                                        Clique aqui para responder
+                                    </p>
+                                </div>
+
+                                <div class="col-md-2 col-sm-2">
+                                    <img id="edit_id_@item.ID" class="resposta_pergunta_click" data-idpergunta="@item.ID" src="~/images/icon_editar.png" width="30" height="30" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-12 col-sm-12">
+                                    <img id="img_loading_pergunta_@item.ID" dat-letra="@item.LETRA" class="resposta-pergunta-letra-loading" src="~/images/icon_loading.gif" />
+
+                                    <p id="resposta_pergunta_@item.ID" class="resposta_pergunta resposta_pergunta_click" data-idpergunta="@item.ID" style="color:black;">
+                                    </p>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+
+                    <div class="cards_colaboracao">
+                        <div class="row cards_colaboracao_sub">
+
+                            <div class="col-md-11 col-sm-11 cards_colaboracao_item" id="cards_colaboracao_item_pergunta_@item.ID" data-idpergunta="@item.ID">
+
+                                <img id="img_loading_pergunta_card_@item.ID" data-idpergunta="@item.ID" class="resposta-pergunta-cards-loading" src="~/images/icon_loading.gif" />
+
+                                <!--
+                                 <div class="cards_colaboracao_itens">
+                                     <p class="texto_card_colaborar"></p>
+                                     <p class="nome_colaborar"></p>
+                                 </div>
+                                 -->
+
+                            </div>
+                            @if (Convert.ToInt32(ViewBag.Cabecalho.STATUS.ToString()) < 2)
+                            {
+                                <div class="col-md-1 col-sm-1 cards_colaboracao_img" data-toggle="modal" data-target="#ModalAddCocriacao" id="AdicionarCoCriacao_@item.ID" data-idpergunta="@item.ID">
+                                    <div>
+                                        <img src="~/images/icon_hand_colaborar.png" width="30" height="30" />
+                                        <p>Colaborar</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    }
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+
+    <!-- SOMENTE PARA IDEIAS QUE JA TIVERAM A CO-CRIAÇÃO CONCLUIDA -->
+
+    <div class="row ">
+
+        <div class="col-md-5 col-sm-5">
+
+            @if (ViewBag.Cabecalho.ID_USUARIO.ToString() == Session["id"].ToString())
+            {
+                if (Convert.ToInt32(ViewBag.Cabecalho.STATUS.ToString()) < 2)
+                {
+                    <h6 style="font-weight:bold;">
+                        Grave um pitch de até 3 minutos explicando a sua ideia inovadora, cole aqui o link
+                        para que as pessoas consigam entender melhor o seu projeto. Seja objetivo e
+                        apresente as principais características da sua ideia. Chegou a hora! Luz, câmera,
+                        ação!
+                    </h6>
+
+                    <div class="input-group">
+                        <input id="link-novo-pit" type="text" class="form-control" placeholder="Informe o link do pitch aqui" value="@ViewBag.Cabecalho.LINK_PIT.ToString()" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-success btn-salvar-novo-video-pit" type="button">Salvar link video</button>
+                        </div>
+                    </div>
+
+                    using (@Html.BeginForm("UploadFile",
+                            "Ideia",
+                            FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+                    {
+                        <form>
+                            <table>
+                                <tr style="margin-top: 10px">
+                                    <td>
+                                        <br />
+                                        <br />
+                                        <input type="file" name="myfile">
+                                        <input type="text" name="idideia" style="display:none;" value="@ViewBag.Cabecalho.ID.ToString()" />
+                                        <input class="btn btn-success" type="submit" value="Salvar PDF" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    }
+
+                    <br />
+                    <div class="row" style="display:none;" id="grid_anexos_ideia">
+                        <h6 style="font-weight:bold;"> Anexos</h6>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="grid_anexos_ideia_conteudo">
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+
+                    <div id="id_container_iframe">
+                        <iframe width="100%" height="300"
+                                src="@ViewBag.Cabecalho.LINK_PIT.ToString()"
+                                title="YouTube video player"
+                                frameborder="0"
+                                id="iframe_video"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                        </iframe>
+                    </div>
+                }
+                else
+                {
+
+                    <br />
+                    <div class="row" style="display:none;" id="grid_anexos_ideia">
+                        <h6 style="font-weight:bold;"> Anexos</h6>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="grid_anexos_ideia_conteudo">
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+
+                    <h6 style="font-weight:bold;"> Assista aqui a apresentação da ideia! </h6>
+                    <br />
+                    <div id="id_container_iframe">
+                        <iframe width="100%" height="300"
+                                src="@ViewBag.Cabecalho.LINK_PIT.ToString()"
+                                title="YouTube video player"
+                                frameborder="0"
+                                id="iframe_video"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                        </iframe>
+                    </div>
+                }
+            }
+            else
+            {
+                <br />
+                <div class="row" style="display:none;" id="grid_anexos_ideia">
+                    <h6 style="font-weight:bold;"> Anexos</h6>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grid_anexos_ideia_conteudo">
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+
+                <h6 style="font-weight:bold;"> Assista aqui a apresentação da ideia! </h6>
+                <br />
+                <div id="id_container_iframe">
+                    <iframe width="100%" height="300"
+                            src="@ViewBag.Cabecalho.LINK_PIT.ToString()"
+                            title="YouTube video player"
+                            frameborder="0"
+                            id="iframe_video"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    </iframe>
+                </div>
+            }
+
+        </div>
+
+        @if (ViewBag.Cabecalho.ID_USUARIO.ToString() == Session["id"].ToString())
+        {
+            <!-- significa que a ideia pode concluir a parte de co criação-->
+            if (Convert.ToInt32(ViewBag.Cabecalho.STATUS.ToString()) < 2)
+            {
+                <div class="col-md-3 col-sm-3" style="margin-top:-15px;">
+                    <h2 style="font-weight:bold;">
+                        Ja terminou o processo de Cocriação da sua ideia?
+                    </h2>
+                    <span>
+                        Compartilhe agora sua ideia finalizada para receber
+                        feedbacks de colegas de trabalho, lideres, amigos e etc...
+                    </span>
+                    <br />
+                    <span>
+                        <a href="#" data-toggle="modal" data-target="#exampleModalFinalizar" class="btn btn-light btn-ideias  divbtn-copiar-link" title="ideia de diversas" name="ideiadiversas">
+                            CONCLUIR E COMPARTILHAR
+                        </a>
+                    </span>
+                </div>
+            }
+        }
+
+        @if (Convert.ToInt32(ViewBag.Cabecalho.STATUS.ToString()) >= 2)
+        {
+            <div class="col-md-2 col-sm-2 div-ideia_concluida">
+                <div class="btn-ideia_concluida">
+                    <h2 style="font-weight:bold;">
+                        Quer modificar a sua ideia? Crie aqui uma versão
+                    </h2>
+                    <span>
+                        Ao criar um versão nova da sua ideia você preserva os feedbacks da versão
+                        original e consegue comparar a ideia original com a nova versão em suas avaliações.
+                    </span>
+                    <span>
+                        <a href="#" data-toggle="modal" data-target="#exampleModalDuplicarIdeia" class="btn btn-light btn-ideias" name="duplicarIdeia">
+                            CLIQUE AQUI
+                        </a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2 div-ideia_concluida">
+                <div class="btn-ideia_concluida">
+                    <h2 style="font-weight:bold;">
+                        Quer compartilhar esta ideia?
+                    </h2>
+                    <span>
+                        Compartilhe agora sua ideia finalizada para receber feedbacks de colegas de trabalho, líderes, amigos e etc…
+                    </span>
+                    <span>
+                        <a href="/Ideia/Share/?idIdeia=@ViewBag.Cabecalho.ID&shareEnum=AVALIACAO" class="btn btn-light btn-ideias btn-convidar" name="convidar">
+                            CLIQUE AQUI
+                        </a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-3 div-ideia_concluida" style="float:right;">
+                <div class="btn-ideia_concluida">
+                    <h2 style="font-weight:bold;">
+                        Você quer potencializar a performance da sua ideia inovadora?
+                    </h2>
+                    <span>
+                        Conheça as nossas soluções e conte com os nossos mentores para a implementação dessa inovação.
+                    </span>
+                    <br />
+                    <br />
+                    <span>
+                        <a href="https://idealizei.com.br/prototipacao/" target="_blank" class="btn btn-light btn-ideias" name="potencializarIdeia">
+                            EU QUERO POTENCIALIZAR A MINHA IDEIA
+                        </a>
+                    </span>
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+
+
+    <!-- MODAIS DE CUSTOMIZAÇÃO DA PAGINA -->
+    <!-- MODAL DE ALTERAÇÃO DO CABEÇALHO -->
+    <div class="modal fade" id="Modal_cabecalho" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalhes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Nome do Projeto</label>
+                            <input type="text" class="form-control" id="InputTextoIdeia" placeholder="Nome do Projeto">
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-fechar-modal" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" id="btn-SalvarDados-cabecalho">Salvar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL DE ENVIO DE EMAIL -->
+    <div class="modal fade" id="Modal_Envio_Email" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalhes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Adicione os e-mail's ao pressionar a tecla Enter ou Espaço </label>
+                            <div id="InputTextoEmails"></div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-fechar-modal" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" id="btn-enviar-emails"><i class="fa fa-envelope"></i> Enviar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL DE DESCRIÇÃO DO PROBLEMA -->
+    <div class="modal fade" id="Modal_Descricao_Problema" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informe a descrição do problema:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <textarea type="text" class="form-control" id="InputTextoDor" placeholder="Descreva o problema" maxlength="300" rows="5" cols="3"></textarea>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-fechar-modal" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" id="btn-SalvarDados-descricao-problema">Salvar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL SOLUÇÕES -->
+    <div class="modal fade" id="Modal_Solucoes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Liste aqui quais são as ideias que podem solucionar esse problema:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <span>Informe as tags:</span>
+                        <img id="img_loading_solucoes_modal" src="~/images/icon_loading.gif" width="30" height="30" style="margin-bottom: -10px;" />
+                        <select id="tagsSolucoes" multiple></select>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-fechar-modal" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" id="btn-SalvarDados-solucoes">Salvar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL DE RESPOSTA PERGUNTA -->
+    <div class="modal fade" id="Modal_Resposta_Pergunta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <p id="id_questao_modal" style="display:none;"></p>
+            <p id="id_ideia_modal" style="display:none;"></p>
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informe sua resposta para a pergunta!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <textarea type="text" class="form-control" id="InputTextoRespostaPergunta" placeholder="Digite sua resposta" maxlength="800" rows="5" cols="3"></textarea>
+                        </div>
+                    </form>                   
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-fechar-modal" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" id="btn-Salvar-Resposta">Salvar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL DE ADICIONAR DESCRICAO DE CO-CRIAÇÃO -->
+    <div class="modal fade" id="ModalAddCocriacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <p id="id_card_cocriacao" style="display:none;"></p>
+                <p id="id_userCadastrado" style="display:none;"></p>
+                <p id="id_pergunta" style="display:none;"></p>
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informe sua contribuição para a ideia.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea class="comentario_cocriador form-control" aria-label="With textarea" type="text" maxlength="400" cols="33" rows="5">
+
+                   </textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger Modal_btn_excluir_descricao_cocriador">Excluir</button>
+                    <button type="button" class="btn btn-secondary btn-fechar-modal" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary Modal_btn_Add_descricao_cocriador">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FINALIZAR IDEIA -->
+    <div class="modal fade" id="exampleModalFinalizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tem certeza que quer finalizar? Depois você não poderá alterar esta ideia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="Close-modal-avaliar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                    <a href="#" class="btn btn-primary concluir-ideia-button">Sim</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA DUPLICAR IDEIA -->
+    <div class="modal fade" id="exampleModalDuplicarIdeia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informe o nome para a nova ideia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input class="col-12 ideia_input_nv2" type="text" name="nomeIdeiaDuplicada" id="nomeIdeiaDuplicada" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-fechar-modal" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary btn-Modal-duplicar-ideia" data-idideia="@ViewBag.Cabecalho.ID">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</div>

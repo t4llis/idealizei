@@ -1,0 +1,442 @@
+﻿@{
+    ViewBag.Title = "Administrativo";
+}
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="content-adm">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <!-- Cupons -->
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-cupons-tab" data-toggle="pill" href="#pills-cupons" role="tab" aria-controls="pills-cupons" aria-selected="true">Cupons</a>
+            </li>
+            <!-- Pagamentos -->
+            <li class="nav-item">
+                <a class="nav-link" id="pills-pagamentos-tab" data-toggle="pill" href="#pills-pagamentos" role="tab" aria-controls="pills-pagamentos" aria-selected="false">Pagamentos</a>
+            </li>
+            <!-- Contratos -->
+            <li class="nav-item">
+                <a class="nav-link" id="pills-contratos-tab" data-toggle="pill" href="#pills-contratos" role="tab" aria-controls="pills-contratos" aria-selected="false">Contratos</a>
+            </li>
+            <!-- Planos -->
+            <li class="nav-item">
+                <a class="nav-link" id="pills-planos-tab" data-toggle="pill" href="#pills-planos" role="tab" aria-controls="pills-planos" aria-selected="false">Planos</a>
+            </li>
+            <!-- Licenças
+            <li class="nav-item">
+                <a class="nav-link" id="pills-licencas-tab" data-toggle="pill" href="#pills-licencas" role="tab" aria-controls="pills-licencas" aria-selected="false">Licenças</a>
+            </li> -->
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+
+            <!-- Cupons -->
+            <div class="tab-pane fade show active" id="pills-cupons" role="tabpanel" aria-labelledby="pills-cupons-tab">
+                <div id="cupons-init" class="">
+                    <div class="search_add row">
+                        <div class="col-12 d-flex justify-content-end align-items-center">
+                            <button class="btn btn-success novoCadastro add_new" data-form="Cupom" data-formAction="Cadastro" data-menu-catg="cupons">
+                                <i class="fa fa-plus"></i> Novo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tab_list_cupons">
+                        <!-- Table -->
+                        <div class="table-result mt-4 pb-3">
+                            <div class="table-responsive">
+                                <table id="table_cupons" class="table table-sm table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 150px !important;">Código do Cupom</th>
+                                            <th scope="col" style="width: auto!important;">Descrição do Cupom</th>
+                                            <th scope="col" style="width: 90px !important;">Validade</th>
+                                            <th scope="col" style="width: 90px !important;">Desconto (%)</th>
+                                            <th scope="col" style="width: 70px!important;" class="text-center">Status</th>
+                                            <th style="width: 90px">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var cupom in ViewBag.Cupons)
+                                        {
+                                            var status = (cupom.STATUS != "checked" ? "Inativo" : "Ativo");
+                                            <tr>
+                                                <td>@cupom.CUPOM</td>
+                                                <td>@cupom.DESCRICAO</td>
+                                                <td>@cupom.VALIDADE</td>
+                                                <td>@cupom.DESCONTO</td>
+                                                <td class="text-center" data-name="@status">
+                                                    <input type="checkbox" @cupom.STATUS disabled name="@status" dat-id="0">
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-primary alterarCupom" data-cIdCupomAlter="@cupom.ID_CUPOM">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-danger deletarCupom" data-cIdCupom="@cupom.ID_CUPOM" data-cTitle="@cupom.CUPOM" data-cDescricao="@cupom.DESCRICAO" data-cValidade="@cupom.VALIDADE" data-cDesconto="@cupom.DESCONTO" data-cStatus="@status">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagamentos -->
+            <div class="tab-pane fade" id="pills-pagamentos" role="tabpanel" aria-labelledby="pills-pagamentos-tab">
+                <div id="pagamentos-init" class="">
+                    <div class="search_add row">
+                        <div class="col-12 col-sm-9 col-md-6 col-lg-5 d-flex justify-content-end align-items-center">
+                        </div>
+                    </div>
+                    <div class="tab_list_pagamentos">
+                        <!-- Table -->
+                        <div class="table-result mt-4 pb-3">
+                            <div class="table-responsive">
+                                <table id="table_pagamentos" class="table table-sm table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: auto!important;">Cliente</th>
+                                            <th scope="col" style="width:90px!important;">Pedido</th>
+                                            <th scope="col" style="width: 100px !important;">Total Valor</th>
+                                            <th scope="col" style="width: 280px !important;">Forma de Pagamento</th>
+                                            <th scope="col" style="width: 85px !important;" class="text-center">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var pag in ViewBag.Pagamentos)
+                                        {
+                                            <tr>
+                                                <td>@pag.CARRINHO_USUARIONOME</td>
+                                                <td>@pag.ID_CART</td>
+                                                <td>R$ @pag.CARRINHO_VALORTOTAL</td>
+                                                <td>@pag.CARRINHO_FORMAPAGAMENTO</td>
+                                                <td class="text-center">@pag.CARRINHO_STATUS</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Contratos -->
+            <div class="tab-pane fade" id="pills-contratos" role="tabpanel" aria-labelledby="pills-contratos-tab">
+                <div id="contratos-init" class="">
+                    <div class="search_add row">
+                        <div class="col-12 d-flex justify-content-end align-items-center">
+                            <button class="btn btn-success novoCadastro add_new" data-form="Contrato" data-formAction="Cadastro" data-menu-catg="contratos">
+                                <i class="fa fa-plus"></i> Novo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tab_list_contratos">
+                        <!-- Table -->
+                        <div class="table-result mt-4 pb-3">
+                            <div class="table-responsive">
+                                <table id="table_contratos" class="table table-sm table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: auto!important;">Cliente</th>
+                                            <th scope="col" style="width:100px!important;">Contrato</th>
+                                            <th scope="col" style="width:150px!important;">Plano</th>
+                                            <th scope="col" style="width:100px!important;">Quantidade</th>
+                                            <th scope="col" style="width:100px!important;">Valor</th>
+                                            <th scope="col" style="width:100px!important;">Valor Total</th>
+                                            <th scope="col" style="width:70px!important;" class="text-center">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var contrato in ViewBag.Contratos)
+                                        {
+                                            var status = (contrato.CONTRATO_STATUS != "checked" ? "noChecked" : "checked");
+                                            var status2 = (contrato.CONTRATO_STATUS != "checked" ? "Inativo" : "Ativo");
+                                            <tr>
+                                                <td>@contrato.CONTRATO_NOMEUSUARIO</td>
+                                                <td>@contrato.CONTRATO_IDPLANO</td>
+                                                <td>@contrato.CONTRATO_TITULOPLANO</td>
+                                                <td>10 (+)</td>
+                                                <td>R$ 150,00 (+)</td>
+                                                <td>R$ @contrato.CONTRATO_VALORTOTAL</td>
+                                                <td class="text-center">
+                                                    <input type="checkbox" disabled name="@status2" dat-id="0" @status>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Planos -->
+            <div class="tab-pane fade" id="pills-planos" role="tabpanel" aria-labelledby="pills-planos-tab">
+                <div id="planos-init" class="">
+                    <div class="search_add row">
+                        <div class="col-12 d-flex justify-content-end align-items-center">
+                            <button class="btn btn-success novoCadastro add_new" data-form="Plano" data-formAction="Cadastro" data-menu-catg="planos">
+                                <i class="fa fa-plus"></i> Novo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tab_list_planos">
+                        <!-- Table -->
+                        <div class="table-result mt-4 pb-3">
+                            <div class="table-responsive">
+                                <table id="table_planos" class="table table-sm table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: auto!important;">Plano</th>
+                                            <th scope="col" style="width:145px!important;">Valor Usuários</th>
+                                            <th scope="col" style="width:120px!important;">Valor Ideia</th>
+                                            <th scope="col" style="width:145px!important;">Valor Validação</th>
+                                            <th scope="col" style="width: 35px!important;" class="text-center">Status</th>
+                                            <th style="width: 90px">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var plano in ViewBag.Planos)
+                                        {
+                                            var status = (plano.PLANO_STATUS != "checked" ? "noChecked" : "checked");
+                                            var status2 = (plano.PLANO_STATUS != "checked" ? "Inativo" : "Ativo");
+                                        <tr>
+                                            <td>@plano.PLANO_TITULO</td>
+                                            <td>R$ @plano.PLANO_VALORUSUARIO</td>
+                                            <td>R$ @plano.PLANO_VALORIDEIA</td>
+                                            <td>R$ @plano.PLANO_VALORVALIDACAO</td>
+                                            <td class="text-center">
+                                                <input type="checkbox" disabled name="@status2" dat-id="0" @status>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-primary alterarPlano" data-cIdPlanoAlter="@plano.ID_PLANO">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger deletarPlano" data-cIdPlano="@plano.ID_PLANO" data-cPlanoTitulo="@plano.PLANO_TITULO" data-cPlanoDescricao="@plano.PLANO_DESCRICAO" data-cPlanoValIdeia="@plano.PLANO_VALORIDEIA" data-cPlanoValUsuario="@plano.PLANO_VALORUSUARIO" data-cPlanoValValidacao="@plano.PLANO_VALORVALIDACAO" data-cPlanoStatus="@status2">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+<!-- Form Add Cupom -->
+<div id="modal_cadastro_Cupom" class="d-none" role="dialog">
+    <form action="#" method="post" data-form="Cupom" id="formCreateCupom" class="form">
+        <input type="hidden" id="id_cupom" name="ID_CUPOM" value="0" />
+        <div class="form-group row">
+            <div class="col-4">
+                <label for="cupom_codigo">Código do Cupom</label>
+                <input type="text" id="cupom_codigo" name="CUPOM" class="form-control" />
+            </div>
+            <div class="col-4">
+                <label for="cupom_descricao">Descrição Cupom</label>
+                <input type="text" id="cupom_descricao" name="DESCRICAO" class="form-control" />
+            </div>
+            <div class="col-4">
+                <label for="cupom_validade">Validade</label>
+                <input type="date" id="cupom_validade" name="VALIDADE" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row mt-5">
+            <div class="col-4">
+                <label for="cupom_desconto">Desconto em Percentual</label>
+                <input type="number" name="DESCONTO" id="desconto" class="form-control" />
+            </div>
+            <div class="col-4">
+                <label for="cupom_quantidade">Quantidade</label>
+                <input type="number" name="QUANTIDADE" id="quantidade" class="form-control" />
+            </div>
+            <div class="col-4">
+                <label for="cupom_quantidade_disponivel">Quantidade Disponível</label>
+                <input type="number" name="DISPONIVEL" id="cupom_quantidade_disponivel" class="form-control" />
+            </div>
+        </div>
+        <div class="b_actions d-flex justify-content-center pt-4 mt-5">
+            <button type="submit" class="btn btn-primary px-4 mr-5 return_submit" data-typeCupom="create">Incluir</button>
+            <button class="btn btn-outline-secondary px-4 " data-dismiss="modal" role="button">Voltar</button>
+        </div>
+    </form>
+</div>
+<!-- Form Add Contrato -->
+<div id="modal_cadastro_Contrato" class="d-none" role="dialog">
+    <form action="#" method="post" data-form="Contrato" id="formCreateContrato" class="form">
+        <div class="form-group row">
+            <input type="hidden" id="contrato_numero" name="ID_CONTRATO" class="form-control" value="0" disabled />
+            <input type="hidden" id="contrato_idUsuario" name="CONTRATO_IDUSUARIO" value="0" />
+            <div class="col-8">
+                <label for="contrato_cliente">Cliente</label>
+                <input type="search" id="contrato_cliente" name="CONTRATO_NOMEUSUARIO" class="form-control" list="clienteInfos"/>
+                <datalist id="clienteInfos">
+                    <option data-value="1" value="Armando"></option>
+                    <option data-value="2" value="Bernardo"></option>
+                    <option data-value="3" value="Cláudio"></option>
+                    <option data-value="4" value="Davi"></option>
+                    <option data-value="5" value="Elielton"></option>
+                    <option data-value="6" value="Fabricio"></option>
+                    <option data-value="7" value="Gustavo"></option>
+                </datalist>
+            </div>
+            <div class="col-4">
+                <label for="contrato_status">Status</label>
+                <select name="CONTRATO_STATUS" id="contrato_status" class="form-control">
+                    <option value="0" selected>Ativo</option>
+                    <option value="1">Inativo</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-4">
+                <label for="contrato_data_cadastro">Data Cadastro</label>
+                <input type="date" name="CONTRATO_DATACONTRATO" id="contrato_data_cadastro" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" disabled/>
+            </div>
+            <div class="col-4">
+                <label for="contrato_data_renovacao">Data de Renovação</label>
+                <input type="date" name="CONTRATO_DATARENOVACAO" id="contrato_data_renovacao" class="form-control" />
+            </div>
+            <div class="col-4">
+                <label for="contrato_data_cancelamento">Data de Cancelamento</label>
+                <input type="date" name="CONTRATO_DATACANCELAMENTO" id="contrato_data_cancelamento" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-4">
+                <label for="contrato_plano">Plano</label>
+                <select class="form-control" name="CONTRATO_TITULOPLANO" id="contrato_plano" data-live-search="true">
+                    <option value="" selected disabled>Escolha um plano</option>
+                    @foreach (var plano in ViewBag.Planos)
+                    {
+                        <option value="@plano.ID_PLANO" data-tokens="@plano.PLANO_TITULO">@plano.PLANO_TITULO</option>
+                    }
+                </select>
+            </div>
+            <input class="form-control" type="hidden" id="contrato_idPlano" name="CONTRATO_IDPLANO" value="0" />
+        </div>
+        <br><hr><br>
+        <div class="form-group row mt-1">
+            <div class="col-4">
+                <label for="contrato_quantidade_usuarios">Quantidade Usuários</label>
+                <input type="number" class="form-control contrato_quantidade_usuarios" disabled />
+                <input type="hidden" name="CONTRATO_QUANTUSUARIOS" class="form-control contrato_quantidade_usuarios" />
+            </div>
+            <div class="col-4">
+                <label for="contrato_quantidade_ideias">Quantidade Ideias</label>
+                <input type="number" class="form-control contrato_quantidade_ideias" disabled />
+                <input type="hidden" name="CONTRATO_QUANTIDEIAS" class="form-control contrato_quantidade_ideias" />
+            </div>
+            <div class="col-4">
+                <label for="contrato_quantidade-avaliacoes">Quantidade Avaliações</label>
+                <input type="number" class="form-control contrato_quantidade-avaliacoes" disabled />
+                <input type="hidden" name="CONTRATO_QUANTVALIDACOES" class="form-control contrato_quantidade-avaliacoes" />
+            </div>
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-4">
+                <label for="contrato_valor_usuarios">Valor Usuários</label>
+                <input type="text" class="form-control money contrato_valor_usuarios" disabled />
+                <input type="hidden" name="CONTRATO_VALORUSUARIO" class="form-control money contrato_valor_usuarios" />
+            </div>
+            <div class="col-4">
+                <label for="contrato_valor_ideias">Valor Ideias</label>
+                <input type="text" class="form-control money contrato_valor_ideias" disabled />
+                <input type="hidden" name="CONTRATO_VALORIDEIA" class="form-control money contrato_valor_ideias" />
+            </div>
+            <div class="col-4">
+                <label for="contrato_valor_avaliacoes">Valor Avaliações</label>
+                <input type="text" class="form-control money contrato_valor_avaliacoes" disabled />
+                <input type="hidden" name="CONTRATO_VALORVALIDACAO" class="form-control money contrato_valor_avaliacoes" />
+            </div>
+            <input type="hidden" id="contrato_valor_total" name="CONTRATO_VALORTOTAL" value="0" />
+            <input type="hidden" name="CONTRATO_STATUS" value="1" />
+        </div>
+        <div class="b_actions d-flex justify-content-center pt-4 mt-5">
+            <button type="submit" class="btn btn-primary px-4 mr-5 return_submit">Incluir</button>
+            <button class="btn btn-outline-secondary px-4" data-dismiss="modal" role="button">Voltar</button>
+        </div>
+    </form>
+</div>
+<!-- Form Add Plano -->
+<div id="modal_cadastro_Plano" class="d-none" role="dialog">
+    <form action="#" id="formCreatePlano" method="post" class="form" data-form="Plano">
+        <input type="hidden" name="form_name" value="plano" />
+        <div class="form-group row">
+            <div class="col-8">
+                <label for="plano_nome">Plano</label>
+                <input class="form-control" id="plano_nome" name="PLANO_TITULO" />
+            </div>
+            <div class="col-4">
+                <label for="plano_status">Status</label>
+                <select id="plano_status" name="PLANO_STATUS" class="form-control">
+                    <option value="1" selected>Ativo</option>
+                    <option value="0">Inativo</option>
+                    <option value="2">Cancelado</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row mt-4">
+            <div class="col-4">
+                <label for="plano_quantidade_usuarios">Quantidade Usuários</label>
+                <input type="number" name="PLANO_QUANTUSUARIOS" id="plano_quantidade_usuarios" class="form-control calcValPlan" />
+            </div>
+            <div class="col-4">
+                <label for="plano_quantidade_ideias">Quantidade Ideias</label>
+                <input type="number" name="PLANO_QUANTIDEIAS" id="plano_quantidade_ideias" class="form-control calcValPlan" />
+            </div>
+            <div class="col-4">
+                <label for="plano_quantidade_avaliacoes">Quantidade Avaliações</label>
+                <input type="number" name="PLANO_QUANTVALIDACOES" id="plano_quantidade_avaliacoes" class="form-control calcValPlan" />
+            </div>
+        </div>
+        <div class="form-group row mt-4">
+            <div class="col-4">
+                <label for="plano_valor_unitario_usuarios">Valor Unitário Usuários</label>
+                <input type="text" name="PLANO_VALORUSUARIO" id="plano_valor_unitario_usuarios" class="form-control money calcValPlan" />
+            </div>
+            <div class="col-4">
+                <label for="plano_valor_unitario_ideias">Valor Unitário Ideias</label>
+                <input type="text" name="PLANO_VALORIDEIA" id="plano_valor_unitario_ideias" class="form-control money calcValPlan" />
+            </div>
+            <div class="col-4">
+                <label for="plano_valor_unitario_avaliacoes">Valor Unitário Avaliações</label>
+                <input type="text" name="PLANO_VALORVALIDACAO" id="plano_valor_unitario_avaliacoes" class="form-control money calcValPlan" />
+            </div>
+        </div>
+        <div class="form-group row mt-4">
+            <div class="col-8">
+                <label for="plano_descricao">Descrição</label>
+                <textarea class="form-control" name="PLANO_DESCRICAO" id="plano_descricao"></textarea>
+            </div>
+            <div class="col-4">
+                <label for="valorTotal">Valor Total</label>
+                <input class="form-control money plano_valorTotal" type="text"" value="0" disabled />
+                <input class="form-control money plano_valorTotal" type="hidden" name="PLANO_VALORTOTAL" value="0" />
+            </div>
+        </div>
+        <div class="b_actions d-flex justify-content-center pt-4 mt-5">
+            <button type="submit" class="btn btn-primary px-4 mr-5 return_submit">Incluir</button>
+            <button class="btn btn-outline-secondary px-4" data-dismiss="modal" role="button">Voltar</button>
+        </div>
+    </form>
+</div>

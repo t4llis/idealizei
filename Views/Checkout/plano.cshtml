@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Idealizei</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha512-znmTf4HNoF9U6mfB6KlhAShbRvbt4CvCaHoNV0gyssfToNQ/9A0eNdUbvsSwOIUoJdMjFG2ndSvr0Lo3ZpsTqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="/Content/custom/css/checkout.css" rel="stylesheet" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="load">
+    <header class="w-100" id="header">
+        <div class="container d-flex justify-content-between align-items-center">
+            <img id="logo" src="https://idealizei.com.br/wp-content/uploads/2021/10/Ativo-52-1280.png" alt="">
+            <span>
+                <i class="fa fa-lock"></i>
+                Compra Segura
+            </span>
+        </div>
+    </header>
+    <div class="container-fluid py-5">
+        <main class="container" id="main">
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <!-- Form 1 -->
+                    <div id="form_dados_pessoais" class="form_checkout">
+                        <i class="fa fa-spinner loop" aria-hidden="true"></i>
+                        <form action="#" id="form_dados" class="form" method="post">
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="nome_empresa">Nome / Empresa</label>
+                                <input type="text" id="nome_empresa" class="form-control" placeholder="Digite seu nome/Empresa" value=""/>
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="cpf_cnpj">CPF / CNPJ</label>
+                                <input type="text" id="cpf_cnpj" class="form-control" placeholder="000.000.000-00" value=""/>
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="data_nascimento">Data de Nascimento</label>
+                                <input type="date" id="data_nascimento" class="form-control" value=""/>
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="telefone">Telefone</label>
+                                <input type="text" id="telefone" class="form-control" placeholder="(00) 90000-0000" value=""/>
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="email">E-mail</label>
+                                <input type="text" id="email" class="form-control" placeholder="Digite seu e-mail" value=""/>
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="cupom">Cupom</label>
+                                <input type="text" id="cupom" class="form-control" placeholder="Digite seu cupom" />
+                            </div>
+                            <div class="action col-12 col-lg-9">
+                                <button class="btn btn-outline-secondary method_payment mb-2" data-payment="boleto"><i class="fa fa-barcode" aria-hidden="true"></i> Boleto</button>
+                                <button class="btn btn-outline-secondary method_payment mb-2" data-payment="cc"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Cartão de Crédito</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Form 2 -->
+                    <div id="form_dados_cartao" class="form_checkout">
+                        <form action="#" class="form" method="post">
+                            <div class="form-group col-12 col-lg-9">
+                                <div>
+                                    <label for="cartao_numero">Número do Cartão</label>
+                                    <input type="text" id="cartao_numero" class="form-control" value=""/>
+                                </div>
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <div>
+                                    <label for="cartao_titular">Nome do titular do Cartão</label>
+                                    <input type="text" id="cartao_titular" class="form-control" value=""/>
+                                </div>
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <div class="form-group row">
+                                    <div class="col-6">
+                                        <label for="cartao_validade">Validade</label>
+                                        <input type="text" id="cartao_validade" class="form-control" placeholder="MM/AA" value=""/>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="cartao_cvv">CVV</label>
+                                        <input type="text" id="cartao_cvv" class="form-control" placeholder="123" value=""/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <div>
+                                    <select id="parcelas" class="form-control">
+                                        <option value="1" selected disabled>Selecione as parcelas</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="termos_uso">
+                                    <label class="form-check-label" for="termos_uso">
+                                        <a href="#">Termos de Uso</a>
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="politica_privacidade">
+                                    <label class="form-check-label" for="politica_privacidade">
+                                        <a href="#">Política de Privacidade</a>
+                                    </label>
+                                </div>
+                            </div>
+                            <small id="termosMessage" class="form-text text-danger text-muted"></small>
+                            <div class="action col-12 col-lg-9 d-flex justify-content-between">
+                                <button class="btn btn-outline-secondary prevForm" data-prev="form_dados_pessoais" data-atual="form_dados_cartao">Voltar</button>
+                                <div>
+                                    <button class="btn btn-primary submit_cart">Concluir Pagamento</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Form 3 -->
+                    <div id="form_dados_endereco" class="form_checkout">
+                        <form action="#" class="form" method="post">
+                            <input type="hidden" id="check_total" name="check_total" value="0" />
+                            <input type="hidden" id="check_desc" name="check_desc" value="0" />
+                            <input type="hidden" id="check_perc_desc" name="check_perc_desc" value="0" />
+                            <input type="hidden" id="check_total_desc" name="check_total_desc" value="0" />
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="cep">CEP</label>
+                                <input type="text" id="cep" class="form-control" placeholder="Digite seu CEP" value="" />
+                                <small id="cepMessage" class="form-text text-danger text-muted"></small>
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="endereco">Endereço</label>
+                                <input type="text" id="endereco" class="form-control" placeholder="Endereço" disabled />
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="numero">Número</label>
+                                <input type="number" id="numero" class="form-control" placeholder="Número" value=""/>
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="complemento">Complemento</label>
+                                <input type="text" id="complemento" class="form-control" placeholder="Complemento" />
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="bairro">Bairro</label>
+                                <input type="text" id="bairro" class="form-control" placeholder="Bairro" disabled />
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="cidade">Cidade</label>
+                                <input type="text" id="cidade" class="form-control" placeholder="Cidade" disabled />
+                            </div>
+                            <div class="form-group col-12 col-lg-9">
+                                <label for="estado">Estado</label>
+                                <input type="text" id="estado" class="form-control" placeholder="Estado" disabled />
+                            </div>
+                            <div class="action col-12 col-lg-9">
+                                <button class="btn btn-outline-secondary prevForm" data-prev="form_dados_cartao" data-atual="form_dados_endereco">Voltar</button>
+                                <button class="btn btn-success submit_finaly">Finalizar</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+                    <!-- Resumo da compra -->
+                    <div id="resumo_compra" class="form_checkout" style="display: none;">
+                        <div id="obrigado" style="padding: 70px 25px;">
+                            <center>
+                                <i class="fa fa-check-circle" style="font-size: 42px; color: #61ce70;"></i>
+                                <h2 style='font-family: "Poppins", Sans-serif; font-size: 29px; color: #505050;'>Obrigado por comprar conosco</h2>
+                                <p style='font-size: 15px; font-weight: 400; line-height: 1.6em; color: rgba(0,0,0,.55); margin-bottom: 60px;'>Você faz parte da nossa evolução.</p>
+                            </center>
+                            <div class="resumo" style="background-color: white; width: 100%; max-width: 800px; margin: 0 auto;">
+                                <h4 style="text-align: center; font-size: 1.5em; color: #54595F; font-family: 'Poppins', Sans-serif; margin-bottom: 20px;">Obrigado. Seu pedido foi recebido.</h4>
+                                <div class="list" style="background: #f1f1f1; padding: 15px 25px;">
+                                    <ul style="font-family: 'Poppins', Sans-serif; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px">
+                                        <li>Número do pedido: <strong id="info_form_numero_pedido">#0987876</strong></li>
+                                        <li>Data: <strong id="info_form_data">21 de Dezembro de 2021</strong></li>
+                                        <li>E-mail: <strong id="info_form_email">contato.oliveiraezequiel@gmail.com</strong></li>
+                                        <li>Total: <strong id="info_form_total">R$: 58,98</strong></li>
+                                        <li>Método de Pagamento: <strong id="info_form_metodo_pagamento">Pagar.me (Boleto)</strong></li>
+                                    </ul>
+                                </div>
+
+                                <div id="option_payment_boleto" style="text-align: center; display: none;">
+                                    <h5 style="color: #404040; margin-top: 25px; font-size: 13px; font-weight: 600; text-align: center;">Sua transação foi processada.</h5>
+                                    <p style="color: #404040; font-size: 13px;">Se você ainda não efetuou o pagamento, por favor clique no botão abaixo para pagar.</p>
+                                    <br />
+                                    <a id="imprimir_boleto" href="" target="_blank" style="margin: 0 auto; display: flex; width: 50%; justify-content: center; align-items: center; height: 40px; border-radius: 3px; background: #1ea740; color: #fff; font-size: 1.2rem; font-weight: 600; text-decoration: none;">Imprimir</a><br /><br />
+                                    <p style="color: #404040; font-size: 13px;">Caso tenha alguma dúvida referente à transação, entre em contato conosco.</p>
+                                </div>
+
+
+                            </div>
+                            <style>
+                                .button {
+                                    padding: 10px 25px;
+                                    border-radius: 5px;
+                                    text-decoration: none;
+                                    transition: all .4s ease-in-out;
+                                }
+
+                                .btn-site {
+                                    background: #fff;
+                                    color: #1d1d1d;
+                                    border: 1px solid #1d1d1d;
+                                }
+
+                                    .btn-site:hover {
+                                        background: #1d1d1d;
+                                        color: #fff;
+                                        border: 1px solid #1d1d1d;
+                                        text-decoration: none;
+                                    }
+
+                                .btn-acesso {
+                                    background: #1d1d1d;
+                                    color: #fff;
+                                    border: 1px solid #1d1d1d;
+                                }
+
+                                    .btn-acesso:hover {
+                                        background: #424242;
+                                        color: #fff;
+                                        text-decoration: none;
+                                    }
+
+                                table tr td {
+                                    padding-bottom: 10px;
+                                    font-size: .9rem;
+                                }
+                            </style>
+                            <center style="padding: 45px 0;">
+                                <a href="/" class="button btn-site" style="">Ir para o site</a>
+                                <a href="/Home" class="button btn-acesso" style="">Meu acesso</a>
+                            </center>
+
+                            <div class="resumo" style="background-color: white; width: 100%; max-width: 800px; margin: 0 auto;">
+                                <div class="list" style="background: #f1f1f1; padding: 15px 25px;">
+                                    <h4 style="font-size: 1.5em; color: #323335; font-family: 'Poppins', Sans-serif; margin-bottom: 20px;">Detalhes do Pedido</h4>
+                                    <table style="font-family: 'Poppins', Sans-serif; text-align: left;">
+                                        <thead>
+                                            <tr>
+                                                <th style="min-width: 200px;">Pedido</th>
+                                                <th>Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td id="info_form_nome_plano">Nome do Plano</td>
+                                                <td id="info_form_valor">Valor</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Subtotal</td>
+                                                <td id="info_form_subtotal"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Desconto</td>
+                                                <td id="info_form_desconto"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Metodo de Pagamento</td>
+                                                <td id="info_form_payment"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total</td>
+                                                <td id="info_form_total2"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="resumo" style="background-color: white; margin-top: 25px; width: 100%; max-width: 800px; margin: 0 auto;">
+                                <div class="list" style="background: #f1f1f1; padding: 15px 25px;">
+                                    <h4 style="font-size: 1.5em; color: #323335; font-family: 'Poppins', Sans-serif; margin-bottom: 20px;">Endereço de Faturamento</h4>
+                                    <ul style="font-family: 'Poppins', Sans-serif; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px">
+                                        <li id="info_form_nome">Nome</li>
+                                        <li id="info_form_endereco">Endereço</li>
+                                        <li id="info_form_bairro">Bairro</li>
+                                        <li id="info_form_cidade">Cidade</li>
+                                        <li id="info_form_estado">Estado</li>
+                                        <li id="info_form_cep">Cep</li>
+                                        <li id="info_form_telefone">Telefone</li>
+                                        <li id="info_form_email2">E-mail</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div id="resumo">
+                        <i class="fa fa-spinner loop" aria-hidden="true"></i>
+                        <div id="resumo_header">
+                            <h3>Resumo da Compra</h3>
+                        </div>
+                        <div id="resumo_body">
+                            <h3 id="planoTitulo"></h3>
+                            <p><span>Valor Plano:</span> <strong id="valorPlano"></strong></p>
+                            <p><span>Desconto:</span> <strong id="valorDesconto">R$ 0,00</strong></p>
+                            <hr>
+                            <p><span>Valor Total:</span> <strong id="valorTotal"></strong></p>
+                            <div id="detalhes">
+                                <h5>Detalhes</h5>
+                                <p id="planoDescricao"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha512-jCaU0Dp3IbMDlZ6f6dSEQSnOrSsugG6F6YigRWnagi7HoOLshF1kwxLT4+xCZRgQsTNqpUKj6WmWOxsu9l3URA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/Content/custom/js/checkout.js"></script>
+
+
+    <!--<script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Pagarme/index",
+                dataType: 'json',
+                success: function (ret) {
+                    console.log(ret)
+                    /*var idPlano = localStorage.getItem('check')
+                    if ((ret) && idPlano >= 0) {
+                        buscarDadosPlano(idPlano)
+                    } else {
+                        //window.location.href = "/"
+                    }*/
+                },
+                error: function (error) {
+                    alert('deu erro')
+                    console.log(error)
+                }
+            });
+
+        })
+    </script>-->
+</body>
+</html>

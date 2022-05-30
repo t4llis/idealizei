@@ -1,0 +1,253 @@
+﻿<div class="right_col conteudo_paginas" role="main">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <span>IDEIA: @ViewBag.QuestoesAvaliacaoIdeias.Data[0].NOMEPROJETO.ToUpper()</span>
+            <br />
+            <span>LIDER: @ViewBag.QuestoesAvaliacaoIdeias.Data[0].LIDER.ToUpper()</span>
+            <br />
+            <span>COCRIADORES: @ViewBag.NomesCoCriadores</span>
+            <br />
+        </div>
+    </div>
+
+    <!--Card resposta para avaliar-->
+    <div class="row cards_colaborar_container container-avaliacao_ideia">
+        <div class="col-md-3 col-sm-3">
+            <h1 class="cards_colaborar_titulo">@ViewBag.QuestoesAvaliacaoIdeias.Data[0].TITULO</h1>
+            <div class="cards_colaborar">
+                <div class="container_resposta_cocriador">
+                    <div class="resposta_cocriador_1">
+                        <p>@ViewBag.QuestoesAvaliacaoIdeias.Data[0].TEXTOIDEIAINOVADORA</p><!-- Codigo provisorio, ajustar depois que ajustarmos os cadastros -->
+                    </div>
+
+                    @for (int j = 0; j < ViewBag.Respostas.Count; j++)
+                    {
+                        if (ViewBag.Respostas[j].ID_QUESTAO_IDEIAS == ViewBag.QuestoesAvaliacaoIdeias.Data[0].ID_QUESTAO_IDEIAS)
+                        {
+                            <br />
+                            <div class="resposta_cocriador_2" style="background-color:@ViewBag.Respostas[j].COR_CARD; color:#fff;">
+                                <p class="p1">@ViewBag.Respostas[j].RESPOSTA</p>
+                                <p class="p2">@ViewBag.Respostas[j].DATA_HORA</p>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9 col-sm-9">
+            <!--Titulo card-->
+            <h2 class="col-md-3 col-sm-3 cards_colaborar_titulo">Avalie essa etapa:</h2>
+
+            <!--Card questões para avaliação-->
+            <div class="cards_avaliacao">
+                <div class="container_resposta_cocriador">
+                    @{
+                        for (int i = 0; i < @ViewBag.QuestoesAvaliacaoIdeias.Data.Count; i++)
+                        {
+                            <div>
+                                <h2 class="questoes_avaliacao_ideia">@ViewBag.QuestoesAvaliacaoIdeias.Data[i].TEXTOPRATICA</h2> <!-- Codigo provisorio, ajustar depois que ajustarmos os cadastros -->
+                            </div>
+
+                            <div style="margin-bottom: 30px;">
+                                <div class="div_pai_star">
+                                    @{
+                                        for (int j = 0; j <= 10; j++)
+                                        {
+                                            <div style="margin-left: 20px;">
+                                                @{
+                                                    var idStar = j + "_" + ViewBag.QuestoesAvaliacaoIdeias.Data[i].IDQUESTAOAVALIACAOIDEIA;
+                                                }
+                                                <a href='javascript:void(0)' onclick="PreencheEstrela(@j, @ViewBag.QuestoesAvaliacaoIdeias.Data[i].IDQUESTAOAVALIACAOIDEIA)">
+                                                    <img src="/images/star0.png" id="star_@idStar">
+                                                </a>
+
+                                                <div class="div_filho_star">
+                                                    <br />
+                                                    <span style="font-weight: bold;">@j</span>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        <input type="text" id="pontuacao_@ViewBag.QuestoesAvaliacaoIdeias.Data[i].IDQUESTAOAVALIACAOIDEIA" value="0" hidden>
+                                    }
+                                </div>
+
+                            </div>
+                        }
+
+                        <br />
+                        <br />
+                    }
+                </div>
+            </div>
+
+            <!--Botões 'Próxima avaliação e Enviar Avaliação'-->
+            @{
+                var idQuestaoIdeiaAtual = @ViewBag.IdCadastroIdeiaAtual;
+                var idCadastroIdeiaProximo = @ViewBag.IdCadastroIdeiaProximo;
+                var idUltimaQuestaoIdeia = @ViewBag.IdUltimoCadastroIdeia;
+
+            }
+            @{
+                if (idQuestaoIdeiaAtual == idUltimaQuestaoIdeia)
+                {
+                    <br />
+                    <br />
+                    <div class="row" style="margin-left:1px;">
+                        <span class="observacao_span_avaliacao">Deixe aqui o seu feedback final para esta ideia que foi avaliada: </span>
+                    </div>
+                    <div class="row" style="margin-left:5px; margin-right:5px;">
+                        <textarea class="col-12 ideia_textarea_nv2" type="text" name="observacao" id="observacao" required cols="6" rows="3" maxlength="600" style="height:100px;"> </textarea>
+                    </div>
+
+                    <br />
+                    <div class="row">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-2 btn_proxima_avaliacao">
+                            <a href="#"
+                               class="btn btn-light btn-ideias btn-enviar-avaliacao"
+                               title="Enviar avaliação"
+                               name="avaliacao">
+                                ENVIAR AVALIAÇÃO
+                            </a>
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-10"></div>
+
+                        <div class="col-md-2 btn_proxima_avaliacao">
+                            <a href="/Avaliacao/AvaliacaoIdeia/?idCadastroIdeia=@idCadastroIdeiaProximo"
+                               class="btn btn-light btn-ideias btn-proxima-avaliacao"
+                               title="Enviar avaliação"
+                               name="avaliacao">
+                                PRÓXIMA AVALIAÇÃO
+                            </a>
+                        </div>
+
+                    </div>
+
+                }
+            }
+        </div>
+    </div>
+
+    <script type='text/javascript'>
+        var avaliacoesIdeias = @Html.Raw(Json.Encode(ViewBag.QuestoesAvaliacaoIdeias.Data));
+
+
+        function PreencheEstrela(estrelaSelecionada, idQuestao) {
+
+            for (let i = 0; i <= 10; i++) {
+
+                if (i <= estrelaSelecionada) {
+                    document.getElementById("star_" + i + "_" + idQuestao).src = "/images/star1.png";
+                    avaliacao = i + 1;
+                } else {
+                    document.getElementById("star_" + i + "_" + idQuestao).src = "/images/star0.png";
+                    avaliacao = estrelaSelecionada;
+                }
+
+            }
+
+            if (avaliacao == 11) {
+                avaliacao = 10;
+            }
+
+            $('#pontuacao_' + idQuestao).val(avaliacao);
+
+        }
+    </script>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+</div>

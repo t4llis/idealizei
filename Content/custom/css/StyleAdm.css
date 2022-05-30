@@ -1,0 +1,142 @@
+﻿body {
+    height: 100vh;
+}
+button.btn {
+    white-space: nowrap;
+}
+
+.content-adm {
+    margin-bottom: 10px;
+    padding: 10px 17px;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #E6E9ED;
+    padding: 25px 25px 35px;
+    margin-top: 70px;
+}
+
+.table-result {
+    border: 1px solid #666;
+}
+
+    .table-result thead tr th {
+        white-space: nowrap;
+    }
+
+        .table-result thead tr th:first-child {
+            padding-left: 1rem;
+        }
+
+    .table-result tbody tr td:first-child {
+        padding-left: 1rem;
+    }
+
+.content-adm {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 25px;
+}
+
+    .content-adm #pills-tab {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        background-color: #666;
+        height: 10px;
+        overflow: visible;
+        background: #F5F7FA;
+        height: 25px;
+        margin: 21px 0 14px;
+        padding-left: 14px;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        border-bottom: 1px solid #E6E9ED;
+    }
+
+        .content-adm #pills-tab li {
+            margin-top: -16px;
+            background: #fff;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-right: 0.5px solid #dee2e6;
+            border-left: 0.5px solid #dee2e6;
+        }
+
+            .content-adm #pills-tab li:hover a {
+                background: #fff;
+                color: #495057;
+            }
+
+            .content-adm #pills-tab li a {
+                background: #F5F7FA;
+                font-size: 20px;
+                font-weight: 600;
+                border: 0.5px solid #dee2e6;
+                border-radius: 5px;
+                border-bottom: 0;
+                border-left: 0;
+                border-right: 0;
+                color: #5A738E;
+                padding: 10px 17px;
+            }
+
+                .content-adm #pills-tab li a.active {
+                    background: #fff;
+                    color: #495057;
+                }
+
+    .content-adm #pills-tabContent {
+        margin-top: 45px;
+    }
+
+        .content-adm #pills-tabContent #pills-cupons .b_actions {
+            border-top: 0.5px solid #bbbbbb;
+        }
+
+        .content-adm #pills-tabContent .table-result {
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+        }
+
+        .content-adm #pills-tabContent .form {
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+            padding: 10px 17px;
+        }
+
+
+.dataTables_length {
+    margin: 15px 0 10px 15px;
+}
+    .dataTables_length select[name="table_pagamentos_length"] {
+        margin: 0 5px;
+    }
+
+.dataTables_filter {
+    margin: 15px 15px 10px 0;
+}
+
+.dataTables_info {
+    margin: 15px 0 0 15px;
+}
+.dataTables_paginate.paging_simple_numbers {
+    margin: 15px 15px 0 0;
+}
+    .dataTables_paginate.paging_simple_numbers .paginate_button:not(.disabled) {
+        background: #fff !important;
+        border-radius: 4px;
+        border: 1px solid #FFBF00;
+        transition: all .4s ease;
+    }
+    .dataTables_paginate.paging_simple_numbers .paginate_button:hover,
+    .dataTables_paginate.paging_simple_numbers .paginate_button.current {
+        background: #FFBF00 !important;
+        color: #fff!important;
+        border: 1px solid #FFBF00 !important;
+    }
+        .dataTables_paginate.paging_simple_numbers .paginate_button:hover,
+        .dataTables_paginate.paging_simple_numbers .paginate_button:hover {
+
+        }
